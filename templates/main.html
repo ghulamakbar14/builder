@@ -1,0 +1,67 @@
+
+<md-content class="md-whiteframe-3dp" layout="row">
+
+    <md-tabs md-dynamic-height md-border-bottom class="md-primary main-tabs" md-selected="tabIndex" md-top-tabs>
+
+        <md-tab flex label="Settings">
+            <quizbuilder-settings></quizbuilder-settings>
+        </md-tab>
+
+        <md-tab flex label="Quiz">
+            <quizbuilder-questions></quizbuilder-questions>
+        </md-tab>
+
+        <md-tab flex label="Preview">
+
+            <iframe frameborder="0" ng-src="{{ ctrl.iframeLocation }}"></iframe>
+
+        </md-tab>
+
+        <md-tab flex label="Download Generated Code" id="download">
+
+            <div layout="row" layout-padding>
+
+                <div flex class="config-json flex-50">
+
+                    <div layout="row" layout-align="center center">
+                        <md-button class="md-raised" ng-click="ctrl.saveConfigJSON()">Download config.json</md-button>
+                    </div>
+
+                    <div layout="row" layout-align="center center">
+                        <p class="md-caption">Save the file <em>config.json</em> to the <em>quickquiz/data</em> folder.
+                        </p>
+                    </div>
+                    <pre ng-if="ctrl.showingCode">{{ctrl.configJSON| json}}</pre>
+
+                </div>
+
+
+                <div flex class="questions-json flex-50">
+                    <div layout="row" layout-align="center center">
+                        <md-button class="md-raised" ng-click="ctrl.saveQuestionsJSON()">Download questions.json
+                        </md-button>
+                    </div>
+
+                    <div layout="row" layout-align="center center">
+                        <p class="md-caption">Save the file <em>questions.json</em> to the <em>quickquiz/data</em>
+                            folder.</p>
+                    </div>
+
+                    <pre ng-if="ctrl.showingCode">{{ctrl.questionsJSON | json}}</pre>
+                </div>
+
+            </div>
+
+            <div layout="row" layout-padding layout-align="center center">
+                <md-button class="md-raised" ng-click="ctrl.saveDataJS()">Download data.js</md-button>
+            </div>
+            <div layout="row" layout-padding layout-align="center center">
+                <p class="md-caption">Save the file <em>data.js</em> to the <em>yourQuiz/data</em>
+                    folder <strong>only if you need a standalone application, without web server</strong>. See the <strong>Publication</strong> section in the documentation.</p>
+            </div>
+
+        </md-tab>
+
+    </md-tabs>
+
+</md-content>

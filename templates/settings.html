@@ -1,0 +1,1502 @@
+
+<!-- saved from url=(0051)http://quickquiz.ws/builder/templates/settings.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body class=" hasGoogleVoiceExt" cz-shortcut-listen="true"><md-tabs md-dynamic-height="" md-border-bottom"="">
+
+    <!-- settings -->
+
+    <md-tab label="General settings">
+        <div layout-padding="" class="general-settings">
+            <h2 class="md-headline">General settings</h2>
+
+            <md-divider></md-divider>
+
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex=""><strong>TYPE OF QUIZZES</strong></p>
+            </div>
+
+            <!-- graded -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="graded" ng-model="ctrl.settingsService.generalSettings.graded" ng-change="ctrl.onChangeGraded()">
+                    <strong>Graded</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.graded">The quiz has at least one graded question (a question that has a right/wrong answer).</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.graded">It's not a graded quiz.</span>
+                </p>
+            </div>
+
+            <!-- weighted -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="weighted" ng-model="ctrl.settingsService.generalSettings.weighted" ng-change="ctrl.onChangeWeighted()">
+                    <strong>Weighted</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.weighted">The quiz has weighted questions (different points for each choice).</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.weighted">It's not a weighted quiz.</span>
+                </p>
+            </div>
+
+            <!-- personality -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="personality" ng-model="ctrl.settingsService.generalSettings.personality" ng-change="ctrl.onChangePersonality()">
+                    <strong>Personality</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.personality">It is a buzzfeed-style personality quiz.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.personality">It's not a personality quiz.</span>
+                </p>
+            </div>
+
+            <!-- personalities -->
+            <div ng-if="ctrl.settingsService.generalSettings.personality">
+                <div layout="row" class="instructions">
+                    <p class="var-label"></p>
+
+                    <p class="md-caption" flex="">Write each personality, group or category name and press enter to add
+                        it</p>
+                </div>
+
+                <div layout="row">
+                    <p class="var-label"><strong>Personalities</strong></p>
+                    <md-chips flex="" ng-model="ctrl.settingsService.generalSettings.personalities" placeholder="Add personality" delete-button-label="Remove personality" delete-hint="Press delete to remove personality" secondary-placeholder="First personality">
+                    </md-chips>
+                </div>
+            </div>
+
+            <!-- survey -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="survey" ng-model="ctrl.settingsService.generalSettings.survey" ng-change="ctrl.onChangeSurvey()">
+                    <strong>Survey</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.survey">It's a survey (doesn't have right or weighted answers) or it will not be automatically corrected.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.survey">It's not a survey.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- whiteframe -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="whiteframe" ng-model="ctrl.settingsService.generalSettings.whiteframe">
+                    <strong>Whiteframe</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.whiteframe">Show the quiz in a white frame with shadow.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.whiteframe">Don't show the quiz in a white frame.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- toolbar -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="titleToolbar" ng-model="ctrl.settingsService.generalSettings.titleToolbar">
+                    <strong>Toolbar</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.titleToolbar">Show main titles in a toolbar.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.titleToolbar">Show main titles without toolbar.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- page number -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showPageNumber" ng-model="ctrl.settingsService.generalSettings.showPageNumber">
+                    <strong>Page number</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.showPageNumber">Show the page number at the bottom.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.showPageNumber">Don't show the page number.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- progress bar -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showProgressBar" ng-model="ctrl.settingsService.generalSettings.showProgressBar">
+                    <strong>Progress bar</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.showProgressBar">Show a progress bar at the bottom that indicates the current page.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.showProgressBar">Don't show a progress bar.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- question number -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showQuestionNumber" ng-model="ctrl.settingsService.generalSettings.showQuestionNumber">
+                    <strong>Question number</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.showQuestionNumber">Show the number of each question before the statement.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.showQuestionNumber">Don't show the number of each question.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showPointsPerQuestion" ng-disabled="!ctrl.settingsService.generalSettings.graded" ng-model="ctrl.settingsService.generalSettings.showPointsPerQuestion">
+                    <strong>Show points</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.showPointsPerQuestion">Show how many points is each question worth next to the statement.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.showPointsPerQuestion &amp;&amp; ctrl.settingsService.generalSettings.graded">Don't show points per question next to the statement.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.graded">Don't show points per question (only available with graded quizzes).</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- redo button -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="redo" ng-model="ctrl.settingsService.generalSettings.redoButton">
+                    <strong>Redo button</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.redoButton">Show a button to redo the quiz on the score or thanks page.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.redoButton">Don't show a button to redo the quiz.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- required -->
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Options for <strong>REQUIRED QUESTIONS</strong></p>
+            </div>
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="requiredQuestions" ng-model="ctrl.settingsService.generalSettings.requiredQuestions">
+                    <strong>All required questions</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.requiredQuestions">All questions are required.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.requiredQuestions">Select only if <strong>ALL</strong> questions are required.</span>
+                </p>
+            </div>
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="requiredAsterisk" ng-model="ctrl.settingsService.generalSettings.requiredAsterisk">
+                    <strong>Show asterisk</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.requiredAsterisk">Show an asterisk next to the statement if the questions is required.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.requiredAsterisk">Don't show an asterisk next to the statement.</span>
+                </p>
+            </div>
+
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Unanswered action</strong></p>
+                <md-radio-group ng-model="ctrl.settingsService.generalSettings.requiredType" layout="row">
+                    <md-radio-button aria-label="alert" value="alert" class="md-primary">
+                        Show alert
+                    </md-radio-button>
+                    <md-radio-button aria-label="hide button" value="hideButton" class="md-primary">
+                        Hide next or submit button
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showGlobalAlert" ng-model="ctrl.settingsService.generalSettings.showGlobalAlert">
+                    <strong>Show global alert</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.showGlobalAlert">Show an alert at the bottom near to the next/submit buttons if there are any required questions unanswered.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.showGlobalAlert">Don't show a global alert at the bottom.</span>
+                </p>
+            </div>
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showQuestionAlert" ng-model="ctrl.settingsService.generalSettings.showQuestionAlert">
+                    <strong>Show question alert</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.showQuestionAlert">Show an alert below the statement if the user try to go to the next page or submit the quiz and the question is required and unanswered.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.showQuestionAlert">Don't show an alert below the statement.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Options for <strong>LOCAL STORAGE</strong> (you need to download the
+                    generated code to test it, it doesn't work in the preview tab)</p>
+            </div>
+
+            <!-- save local storage -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="saveLocalStorage" ng-model="ctrl.settingsService.generalSettings.saveLocalStorage" ng-change="ctrl.onChangeLocalStorage()">
+                    <strong>Save LocalStorage</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.saveLocalStorage">Save the users' answers locally so they can continue the quiz in other moment.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.saveLocalStorage">Don't save the user answers locally.</span>
+                </p>
+            </div>
+
+            <!-- show local storage popup -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showLocalStoragePopUp" ng-disabled="!ctrl.settingsService.generalSettings.saveLocalStorage" ng-model="ctrl.settingsService.generalSettings.showLocalStoragePopUp" ng-change="ctrl.onChangeShowLocalStoragePopUp()">
+                    <strong>Ask the user</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.showLocalStoragePopUp">Show a pop-up asking the users if they want to load their previous answers.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.showLocalStoragePopUp &amp;&amp; ctrl.settingsService.generalSettings.saveLocalStorage">Saved answers will be loaded automatically without asking the users.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.saveLocalStorage">Select <em>Save
+                        LocalStorage</em> for enable this option.</span>
+                </p>
+            </div>
+
+            <!-- refresh browser -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="refreshBrowser" ng-disabled="!ctrl.settingsService.generalSettings.saveLocalStorage" ng-model="ctrl.settingsService.generalSettings.refreshBrowser" ng-change="ctrl.onChangeRefreshBrowser()">
+                    <strong>Refresh browser</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.refreshBrowser">Refresh the browser on page changes</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.refreshBrowser &amp;&amp; ctrl.settingsService.generalSettings.saveLocalStorage">Don't refresh the browser (recommended)</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.saveLocalStorage">Select <em>Save
+                        LocalStorage</em> for enable this option.</span>
+
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- auto advance -->
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex=""><strong>Important!</strong> Only works properly if we have one question per
+                    page (or all questions are required) and don't use input text or multiple answers questions.</p>
+            </div>
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="autoAdvance" ng-model="ctrl.settingsService.generalSettings.autoAdvance" ng-change="ctrl.onChangeAutoAdvance()">
+                    <strong>Auto advance</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.autoAdvance">Automatically go to the next question/page when the user answers.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.autoAdvance">The user must click in next, finish or submit button to go to the next page or step.</span>
+                </p>
+            </div>
+
+            <!-- hide page buttons -->
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="hidePageButtons" ng-disabled="!ctrl.settingsService.generalSettings.autoAdvance" ng-model="ctrl.settingsService.generalSettings.hidePageButtons">
+                    <strong>Hide nav buttons</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.generalSettings.autoAdvance &amp;&amp; ctrl.settingsService.generalSettings.hidePageButtons">Hide the navigation buttons (previous, next, finish).</span>
+                    <span ng-if="ctrl.settingsService.generalSettings.autoAdvance &amp;&amp; !ctrl.settingsService.generalSettings.hidePageButtons">Don't hide the navigation buttons (previous, next, finish). </span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.autoAdvance">Select <em>Auto advance</em> for enable this option.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- page transition -->
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">You can select none, one or two effects.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Page transition</strong></p>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsAnimation.fade" ng-change="ctrl.settingsAnimationFunc()">Fade
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsAnimation.slide" ng-change="ctrl.settingsAnimationFunc()">Slide
+                </md-checkbox>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- timer -->
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Time in seconds (zero if do not want count down)</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Timer</strong></p>
+                <md-input-container md-no-float="">
+                    <input type="number" ng-model="ctrl.settingsService.generalSettings.timerCount" min="0" aria-label="Timer" ng-change="ctrl.onChangeTimer()">
+                </md-input-container>
+            </div>
+
+        </div>
+    </md-tab>
+
+
+    <!-- labels -->
+
+    <md-tab label="Labels">
+        <div layout-padding="" class="labels">
+
+            <!-- home labels-->
+            <h2 class="md-headline">Home page</h2>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Start Quiz Button</label>
+                    <input ng-model="ctrl.settingsService.labels.startQuiz">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Home title</label>
+                    <input ng-model="ctrl.settingsService.labels.homeTitle">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Home Description (plain text or HTML)</label>
+                    <textarea ng-model="ctrl.settingsService.labels.homeDescription"></textarea>
+                </md-input-container>
+            </div>
+
+            <!-- main labels-->
+            <h2 class="md-headline">Quiz page</h2>
+
+            <div layout="row">
+                <md-input-container flex="" class="md-primary">
+                    <label>Main title</label>
+                    <input ng-model="ctrl.settingsService.labels.mainTitle">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Poins text</label>
+                    <input ng-model="ctrl.settingsService.labels.pointsPerQuestionText">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Previous Button</label>
+                    <input ng-model="ctrl.settingsService.labels.previousText">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Next Button</label>
+                    <input ng-model="ctrl.settingsService.labels.nextText">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Finish Button</label>
+                    <input ng-model="ctrl.settingsService.labels.lastText">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="" class="md-primary">
+                    <label>Required global alert</label>
+                    <input ng-model="ctrl.settingsService.labels.requiredGlobalAlert">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Required question alert</label>
+                    <input ng-model="ctrl.settingsService.labels.requiredQuestionAlert">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Feedback button</label>
+                    <input ng-model="ctrl.settingsService.labels.showFeedback">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Feedback window title</label>
+                    <input ng-model="ctrl.settingsService.labels.feedbackTitle">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Feedback window OK button</label>
+                    <input ng-model="ctrl.settingsService.labels.feedbackOK">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Image popup window CLOSE button</label>
+                    <input ng-model="ctrl.settingsService.labels.closeImage">
+                </md-input-container>
+            </div>
+
+            <!-- form -->
+            <h2 class="md-headline">Send to database</h2>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Submit button</label>
+                    <input ng-model="ctrl.settingsService.labels.submitButton">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Sent Success</label>
+                    <input ng-model="ctrl.settingsService.labels.sentSuccess">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Sent Error</label>
+                    <input ng-model="ctrl.settingsService.labels.sentError">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Send form title</label>
+                    <input ng-model="ctrl.settingsService.labels.sendTitle">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Send form name input text</label>
+                    <input ng-model="ctrl.settingsService.labels.sendName">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Send form email input text</label>
+                    <input ng-model="ctrl.settingsService.labels.sendEmail">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Form required field error</label>
+                    <input ng-model="ctrl.settingsService.labels.requiredField">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Form email error</label>
+                    <input ng-model="ctrl.settingsService.labels.emailError">
+                </md-input-container>
+            </div>
+
+            <!-- score labels-->
+            <h2 class="md-headline">Score page</h2>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Score title</label>
+                    <input ng-model="ctrl.settingsService.labels.scoreTitle">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Score Description (plain text or HTML)</label>
+                    <textarea ng-model="ctrl.settingsService.labels.scoreDescription"></textarea>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Unanswered Question</label>
+                    <input ng-model="ctrl.settingsService.labels.unansweredQuestion">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Answer previous Text</label>
+                    <input ng-model="ctrl.settingsService.labels.answerPrevText">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Solution previous Text</label>
+                    <input ng-model="ctrl.settingsService.labels.solutionPrevText">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Correct</label>
+                    <input ng-model="ctrl.settingsService.labels.correct">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Incorrect</label>
+                    <input ng-model="ctrl.settingsService.labels.incorrect">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Left blank</label>
+                    <input ng-model="ctrl.settingsService.labels.leftBlank">
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Points scored</label>
+                    <input ng-model="ctrl.settingsService.labels.pointsScored">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Percentage scored</label>
+                    <input ng-model="ctrl.settingsService.labels.percentageScored">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Redo button</label>
+                    <input ng-model="ctrl.settingsService.labels.redoText">
+                </md-input-container>
+            </div>
+
+            <!-- Breakpoints messages -->
+
+            <div flex="" class="md-whiteframe-3dp score-break">
+                <p class="md-caption">Breakpoints by points (greater or equal than...) (for <em>graded</em> or <em>weighted</em> quizzes</p>
+
+                <div layout="row" flex="" ng-repeat="message in ctrl.settingsService.labels.showMessagePoints">
+
+                    <md-input-container flex="20" class="break-points">
+                        <label>p &gt;= than</label>
+                        <input type="number" ng-model="message.greaterThan">
+                    </md-input-container>
+
+                    <md-input-container flex="">
+                        <label>Message</label>
+                        <textarea ng-model="message.message"></textarea>
+                    </md-input-container>
+
+                    <md-button class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.removeBreakpoint(ctrl.settingsService.labels.showMessagePoints, $index)">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+
+                </div>
+
+                <div layout="row" layout-align="center center">
+                    <md-button ng-click="ctrl.addBreakpoint(ctrl.settingsService.labels.showMessagePoints)">
+                        <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                        Add Breakpoint
+                    </md-button>
+                </div>
+            </div>
+
+            <div flex="" class="md-whiteframe-3dp score-break">
+                <p class="md-caption">Breakpoints by percentage (greater or equal than...)</p>
+
+                <div layout="row" flex="" ng-repeat="message in ctrl.settingsService.labels.showMessagePercentage">
+
+                    <md-input-container flex="20" class="break-points">
+                        <label>% &gt;= than</label>
+                        <input type="number" ng-model="message.greaterThan">
+                    </md-input-container>
+
+                    <md-input-container flex="">
+                        <label>Message</label>
+                        <textarea ng-model="message.message"></textarea>
+                    </md-input-container>
+
+
+                    <md-button class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.removeBreakpoint(ctrl.settingsService.labels.showMessagePercentage, $index)">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+
+                </div>
+
+                <div layout="row" layout-align="center center">
+                    <md-button ng-click="ctrl.addBreakpoint(ctrl.settingsService.labels.showMessagePercentage)">
+                        <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                        Add Breakpoint
+                    </md-button>
+                </div>
+            </div>
+
+            <!-- messages for personality -->
+            <div flex="" class="md-whiteframe-3dp score-break">
+                <p class="md-caption">Assign messages according to the winning personality (select <em>General Settings -
+                    Personality</em> and add some personalities)</p>
+                <div layout="row" flex="" ng-repeat="message in ctrl.settingsService.labels.showMessagePersonality">
+
+                    <md-input-container md-no-float="">
+                        <md-select ng-model="message.personality" placeholder="personality" class="break-select">
+                            <md-option ng-repeat="result in ctrl.settingsService.generalSettings.personalities" aria-label="{{result}}" value="{{result}}" class="md-primary" <span="" ng-bind-html="result">
+                            </md-option>
+
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container flex="">
+                        <label>Message</label>
+                        <textarea ng-model="message.message"></textarea>
+                    </md-input-container>
+
+                    <md-button class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.removeBreakpoint(ctrl.settingsService.labels.showMessagePersonality, $index)">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+
+                </div>
+
+                <div layout="row" layout-align="center center">
+                    <md-button ng-click="ctrl.addBreakpointPersonality(ctrl.settingsService.labels.showMessagePersonality)">
+                        <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                        Add another personality message
+                    </md-button>
+                </div>
+            </div>
+
+
+            <!-- thanks page-->
+            <h2 class="md-headline">Thanks page</h2>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Thanks title</label>
+                    <input ng-model="ctrl.settingsService.labels.thanksTitle">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Thanks Description (plain text or HTML)</label>
+                    <textarea ng-model="ctrl.settingsService.labels.thanksDescription"></textarea>
+                </md-input-container>
+            </div>
+
+            <!-- local storage labels-->
+            <h2 class="md-headline">Local Storage</h2>
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Pop-up asking the users if they want to load their previous answers (if <em>General Settings
+                        - Ask the user</em> are selected)</label>
+                    <textarea ng-model="ctrl.settingsService.labels.loadLocalStorageAlert"></textarea>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="">
+                    <label>Load previous answers - Button</label>
+                    <input ng-model="ctrl.settingsService.labels.fromSavedButton">
+                </md-input-container>
+                <md-input-container flex="">
+                    <label>Don't load previous answer - Button</label>
+                    <input ng-model="ctrl.settingsService.labels.fromScratchButton">
+                </md-input-container>
+            </div>
+
+
+        </div>
+    </md-tab>
+
+
+    <!-- score -->
+
+    <md-tab label="Score">
+        <div layout-padding="" class="score-settings">
+            <h2 class="md-headline">Score</h2>
+
+            <md-divider></md-divider>
+
+            <!-- total quiz points -->
+            <div layout="row" class="instructions" ng-if="!ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions" ng-if="ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Zero if you want to assign different points to each graded question.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Total Quiz Points</strong></p>
+                <md-input-container md-no-float="">
+                    <input type="number" min="0" ng-model="ctrl.settingsService.score.maxPoints" ng-disabled="!ctrl.settingsService.generalSettings.graded" ng-change="ctrl.onChangeMaxPoints()" aria-label="Total quiz points">
+                </md-input-container>
+            </div>
+
+
+            <!-- penalty points -->
+            <div layout="row" class="instructions" ng-if="!ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions" ng-if="ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Default penalty points for each graded question. Only negative numbers are
+                    allowed.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Penalty Points</strong></p>
+                <md-input-container md-no-float="">
+                    <input type="number" max="0" ng-model="ctrl.settingsService.score.penaltyPointsPerQuestion" ng-disabled="!ctrl.settingsService.generalSettings.graded" aria-label="Penalty points per question" ng-change="ctrl.onChangePenaltyPointsPerQuestion()">
+                </md-input-container>
+            </div>
+
+
+            <!-- decimal places -->
+            <div layout="row" class="instructions" ng-if="!ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions" ng-if="ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Number of decimal places for scored percentage or points.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Decimal places</strong></p>
+                <md-input-container md-no-float="">
+                    <input type="number" min="0" ng-model="ctrl.settingsService.score.decimalNumber" ng-disabled="!ctrl.settingsService.generalSettings.graded" ng-change="ctrl.onChangeDecimalNumber()" aria-label="Decimal places">
+                </md-input-container>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- show message -->
+
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Options about <strong>SHOW A CUSTOM MESSAGE</strong> on the score page</p>
+            </div>
+
+            <div layout="row" class="instructions" ng-if="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality">
+            <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em>, <em>Weighted</em> or
+                    <em>Personality</em> for
+                    enable this option.
+                </p>
+            </div>
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showMessage" ng-disabled="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality" ng-model="ctrl.settingsService.score.showMessage" ng-change="ctrl.onChangeShowMessage()">
+                    <strong>Show message</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showMessage">Show a message on the score page. Select below the data in this message.</span>
+                    <span ng-if="!ctrl.settingsService.score.showMessage">Don't show a message on the score page.</span>
+                </p>
+            </div>
+
+
+            <!-- show points -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> or <em>Weighted</em> for
+                    enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="(ctrl.settingsService.generalSettings.graded || ctrl.settingsService.generalSettings.weighted) &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showPoints" ng-disabled="!ctrl.settingsService.score.showMessage || ctrl.settingsService.generalSettings.personality" ng-model="ctrl.settingsService.score.showPoints" ng-change="ctrl.onChangeShowPoints()">
+                    <strong>Points</strong>
+                </md-switch>
+                <p flex="" class="description"><span ng-if="ctrl.settingsService.score.showPoints">Show points scored.</span>
+                    <span ng-if="!ctrl.settingsService.score.showPoints">Don't show points scored.</span>
+                </p>
+            </div>
+
+
+            <!-- show max points -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.generalSettings.graded &amp;&amp; ctrl.settingsService.score.showMessage &amp;&amp; !ctrl.settingsService.score.showPoints">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Points</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showMaxPoints" ng-disabled="!ctrl.settingsService.score.showPoints || ctrl.settingsService.generalSettings.weighted" ng-model="ctrl.settingsService.score.showMaxPoints">
+                    <strong>Maximum points</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showMaxPoints">Show maximum points that can be scored.</span>
+                    <span ng-if="!ctrl.settingsService.score.showMaxPoints">Don't show maximum points that can be scored.</span>
+                </p>
+            </div>
+
+
+            <!-- message points -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> or <em>Weighted</em> for
+                    enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="(ctrl.settingsService.generalSettings.graded || ctrl.settingsService.generalSettings.weighted) &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showPoints" ng-disabled="!ctrl.settingsService.score.showMessage || ctrl.settingsService.generalSettings.personality" ng-model="ctrl.settingsService.score.showPointsMessage">
+                    <strong>Points message</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showPointsMessage">Show message according to the points scored. You can edit breakpoints and messages in the labels tab.</span>
+                    <span ng-if="!ctrl.settingsService.score.showPointsMessage">Don't show any message according to the points scored.</span>
+                </p>
+            </div>
+
+
+            <!-- show percentage -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showPercentage" ng-disabled="!ctrl.settingsService.score.showMessage || !ctrl.settingsService.generalSettings.graded" ng-model="ctrl.settingsService.score.showPercentage">
+                    <strong>Percentage</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showPercentage">Show percentage scored. Poins are not relevant, only number of correct answers.</span>
+                    <span ng-if="!ctrl.settingsService.score.showPercentage">Don't show percentage scored.</span>
+                </p>
+            </div>
+
+
+            <!-- message percentage -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showPoints" ng-disabled="!ctrl.settingsService.score.showMessage || !ctrl.settingsService.generalSettings.graded" ng-model="ctrl.settingsService.score.showPercentageMessage">
+                    <strong>Percentage message</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showPercentageMessage">Show message according to the percentage scored. You can edit breakpoints and messages in the labels tab.</span>
+                    <span ng-if="!ctrl.settingsService.score.showPercentageMessage">Don't show any message according to the percentage scored.</span>
+                </p>
+            </div>
+
+
+            <!-- show sumary -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showSummary" ng-disabled="!ctrl.settingsService.score.showMessage || !ctrl.settingsService.generalSettings.graded" ng-model="ctrl.settingsService.score.showSummary">
+                    <strong>Summary</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showSummary">Show summary with number of correct answers, wrong answers and unanswered questions.</span>
+                    <span ng-if="!ctrl.settingsService.score.showSummary">Don't show summary.</span>
+                </p>
+            </div>
+
+
+            <!-- message personality -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.personality">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Personality</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.generalSettings.personality &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showPoints" ng-disabled="!ctrl.settingsService.score.showMessage || !ctrl.settingsService.generalSettings.personality" ng-model="ctrl.settingsService.score.showPersonalityMessage">
+                    <strong>Personality message</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showPersonalityMessage">Show message according to the winning personality. You can edit the messages in the labels tab.</span>
+                    <span ng-if="!ctrl.settingsService.score.showPersonalityMessage">Don't show any message according to the winning personality.</span>
+                </p>
+            </div>
+
+
+            <!-- message background color -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em>, <em>Weighted</em> or
+                    <em>Personality</em> for
+                    enable this option.
+                </p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="(ctrl.settingsService.generalSettings.graded || ctrl.settingsService.generalSettings.weighted || ctrl.settingsService.generalSettings.personality) &amp;&amp; !ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show message</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Background color for the score message. Remove it if you want to use the quiz
+                    primary color.<br>You can change the quiz primary color in
+                    the file js/quickquiz.js</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <div layout="row" class="option">
+                    <p class="var-label"><strong>Background color</strong></p>
+                    <!--md-input-container class="color-picker">
+                        <input type="color"
+                               ng-model="ctrl.settingsService.score.scoreMessageBGColor"
+                               ng-disabled="!ctrl.settingsService.score.showMessage"
+                               aria-label="Message Background Color Picker">
+                    </md-input-container-->
+                    <md-input-container class="color-picker">
+                        <input type="text" ng-model="ctrl.settingsService.score.scoreMessageBGColor" ng-disabled="!ctrl.settingsService.score.showMessage" aria-label="Message Background Color Hex">
+                    </md-input-container>
+                    <md-button flex="10" class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.settingsService.score.scoreMessageBGColor = &#39;&#39;">
+
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+
+            <!-- message text color -->
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.score.showMessage">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Text color for the score message. Remove it if you want to use the quiz
+                    primary color. <br>You can change the quiz primary color in
+                    the file js/quickquiz.js</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <div layout="row" class="option">
+                    <p class="var-label"><strong>Text color</strong></p>
+                    <!--md-input-container class="color-picker">
+                        <input type="color"
+                               ng-model="ctrl.settingsService.score.scoreMessageTextColor"
+                               ng-disabled="!ctrl.settingsService.score.showMessage"
+                               aria-label="Message Text Color Picker">
+                    </md-input-container-->
+                    <md-input-container class="color-picker">
+                        <input type="text" ng-model="ctrl.settingsService.score.scoreMessageTextColor" ng-disabled="!ctrl.settingsService.score.showMessage" aria-label="Message Text Color Hex">
+                    </md-input-container>
+                    <md-button flex="10" class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.settingsService.score.scoreMessageTextColor = &#39;&#39;">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+
+
+            <md-divider></md-divider>
+
+            <!-- show quiz -->
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Options about <strong>SHOW THE QUIZ</strong> on the score page</p>
+            </div>
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showQuiz" ng-model="ctrl.settingsService.score.showQuiz" ng-change="ctrl.onChangeShowQuiz()">
+                    <strong>Show quiz</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showQuiz">Show all the quiz on the score page. Select below the data you want to show in the quiz.</span>
+                    <span ng-if="!ctrl.settingsService.score.showQuiz">Don't show the quiz on the score page.</span>
+                </p>
+            </div>
+
+
+            <!-- show user answers -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.score.showQuiz">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show quiz</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showUserAnswers" ng-disabled="!ctrl.settingsService.score.showQuiz" ng-model="ctrl.settingsService.score.showUserAnswers" ng-change="ctrl.onChangeShowUserAnswers()">
+                    <strong>User answers</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showUserAnswers">Show user answers.</span>
+                    <span ng-if="!ctrl.settingsService.score.showUserAnswers">Don't show user answers.</span>
+                </p>
+            </div>
+
+
+            <!-- show icons -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.score.showQuiz">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show quiz</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.score.showUserAnswers &amp;&amp; ctrl.settingsService.score.showQuiz">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>User answers</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.score.showUserAnswers &amp;&amp; ctrl.settingsService.score.showQuiz &amp;&amp; !ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showIcons" ng-disabled="!ctrl.settingsService.score.showUserAnswers || !ctrl.settingsService.generalSettings.graded" ng-model="ctrl.settingsService.score.showIcons">
+                    <strong>Right / Wrong icons</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showIcons">Show right / wrong icons in the user answers.</span>
+                    <span ng-if="!ctrl.settingsService.score.showIcons">Don't show right / wrong icons.</span>
+                </p>
+            </div>
+
+
+            <!-- show solution -->
+            <div layout="row" class="instructions level-2" ng-if="!ctrl.settingsService.score.showQuiz">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>Show quiz</em> for enable this option.</p>
+            </div>
+
+            <div layout="row" class="instructions level-2" ng-if="ctrl.settingsService.score.showQuiz &amp;&amp; !ctrl.settingsService.generalSettings.graded">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em> for enable this option.
+                </p>
+            </div>
+            <div layout="row" class="option level-2">
+                <md-switch class="md-primary var-label" aria-label="showSolution" ng-disabled="!ctrl.settingsService.score.showUserAnswers || !ctrl.settingsService.generalSettings.graded" ng-model="ctrl.settingsService.score.showSolution">
+                    <strong>Solution</strong>
+                </md-switch>
+                <p flex=""><span ng-if="ctrl.settingsService.score.showSolution">Show the solution in case of incorrect answer, unanswered question or if user answers are not shown.</span>
+                    <span ng-if="!ctrl.settingsService.score.showSolution">Don't show solution.</span>
+                </p>
+            </div>
+
+            <md-divider></md-divider>
+
+
+            <!-- show custom image -->
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Options about <strong>SHOW CUSTOM IMAGES</strong> on the score page</p>
+            </div>
+
+
+            <div layout="row" class="instructions" ng-if="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>General settings -&gt; Graded</em>, <em>Weighted</em> or <em>Personality</em> for
+                    enable this option.
+                </p>
+            </div>
+
+            <div layout="row" class="option">
+                <md-switch class="md-primary var-label" aria-label="showPoints" ng-model="ctrl.settingsService.score.showCustomImage" ng-disabled="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality">
+                    <strong>Custom Images</strong>
+                </md-switch>
+                <p flex="">
+                    <span ng-if="ctrl.settingsService.score.showCustomImage &amp;&amp; ctrl.settingsService.generalSettings.graded">Show an image on the score page according to the points or percentage scored.</span>
+                    <span ng-if="ctrl.settingsService.score.showCustomImage &amp;&amp; ctrl.settingsService.generalSettings.weighted">Show an image on the score page according to the points scored.</span>
+                    <span ng-if="ctrl.settingsService.score.showCustomImage &amp;&amp; ctrl.settingsService.generalSettings.personality">Show an image on the score page according to the winning personality.</span>
+                    <span ng-if="!ctrl.settingsService.score.showCustomImage &amp;&amp; ctrl.settingsService.generalSettings.graded">Don't show any imagen according to the points or percentage scored.</span>
+                    <span ng-if="!ctrl.settingsService.score.showCustomImage &amp;&amp; ctrl.settingsService.generalSettings.weighted">Don't show any imagen according to the points scored.</span>
+                    <span ng-if="!ctrl.settingsService.score.showCustomImage &amp;&amp; ctrl.settingsService.generalSettings.personality">Don't show any imagen according according to the winning personality.</span>
+                    <span ng-if="!ctrl.settingsService.generalSettings.graded &amp;&amp; !ctrl.settingsService.generalSettings.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality">Don't show any imagen according according to the points, percentage or winning personality.</span>
+                </p>
+            </div>
+
+            <!-- customImagesBy -->
+            <div ng-if="ctrl.settingsService.generalSettings.graded">
+                <div layout="row" class="instructions" ng-if="!ctrl.settingsService.score.showCustomImage">
+                    <p class="var-label"></p>
+                    <p class="md-caption" flex="">Disabled. Select <em>Custom image</em> for enable this option.</p>
+                    <p></p>
+                </div>
+
+                <div layout="row" class="option">
+                    <p class="var-label"><strong>Select image according to</strong></p>
+                    <md-radio-group ng-model="ctrl.settingsService.score.customImagesBy" layout="row">
+                        <md-radio-button aria-label="none" value="points" class="md-primary" ng-disabled="!ctrl.settingsService.score.showCustomImage">
+                            Points
+                        </md-radio-button>
+                        <md-radio-button aria-label="mysql" value="percentage" class="md-primary" ng-disabled="!ctrl.settingsService.score.showCustomImage">
+                            Percentage
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+            </div>
+
+            <!-- breakpoints image -->
+            <div flex="" class="md-whiteframe-3dp score-break">
+                <p class="md-caption" ng-if="ctrl.settingsService.score.showCustomImage &amp;&amp; !ctrl.settingsService.generalSettings.personality">Assign images according to the
+                    <strong>{{ctrl.settingsService.score.customImagesBy}}</strong> scored (greater or equal than...)</p>
+                <p class="md-caption" ng-if="ctrl.settingsService.score.showCustomImage &amp;&amp; ctrl.settingsService.generalSettings.personality">Assign images according to the
+                    winning <strong>personality</strong> (select <em>General Settings - Personality</em> and add some personalities)</p>
+
+                <p class="md-caption" ng-if="!ctrl.settingsService.score.showCustomImage">Disabled. Select <em>Custom
+                    image</em> for enable this option.</p>
+
+                <div layout="row" flex="" ng-repeat="img in ctrl.settingsService.score.customImagesURL">
+
+                    <md-input-container flex="15" class="break-points-score" ng-if="!ctrl.settingsService.generalSettings.personality">
+                        <label>p &gt;= than</label>
+                        <input type="number" ng-model="img.greaterThan" ng-disabled="!ctrl.settingsService.score.showCustomImage">
+                    </md-input-container>
+
+                    <md-input-container ng-if="ctrl.settingsService.generalSettings.personality">
+                        <md-select ng-model="img.personality" placeholder="personality" class="break-select-score">
+                            <md-option ng-repeat="result in ctrl.settingsService.generalSettings.personalities" aria-label="{{result}}" value="{{result}}" class="md-primary" <span="" ng-bind-html="result">
+                            </md-option>
+
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container flex="">
+                        <label>Image URL</label>
+                        <input ng-model="img.img" ng-disabled="!ctrl.settingsService.score.showCustomImage">
+                    </md-input-container>
+
+                    <md-button class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.removeBreakpoint(ctrl.settingsService.score.customImagesURL, $index)" ng-disabled="!ctrl.settingsService.score.showCustomImage">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+
+                </div>
+
+                <div layout="row" layout-align="center center">
+                    <md-button ng-click="ctrl.addBreakpointImage(ctrl.settingsService.score.customImagesURL)" ng-disabled="!ctrl.settingsService.score.showCustomImage">
+                        <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                        Add Image
+                    </md-button>
+                </div>
+            </div>
+
+            <md-divider></md-divider>
+
+            <!-- share -->
+            <div layout="row" class="instructions">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Options about <strong>SHARE ON SOCIAL MEDIA</strong> on the score page</p>
+            </div>
+
+            <!-- social networks -->
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Social Media</strong></p>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.score.share.twitter">Twitter
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.score.share.gplus">Google+
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.score.share.facebook">Facebook
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.score.share.linkedin">LinkedIn
+                </md-checkbox>
+            </div>
+
+            <!-- share title -->
+            <div layout="row" class="instructions" ng-if="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Choose any <em>Social Media</em> for enable this option.</p>
+                <p></p>
+            </div>
+
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Share title</strong></p>
+                <md-input-container flex="" md-no-float="">
+                    <input ng-model="ctrl.settingsService.score.share.title" aria-label="share title" ng-disabled="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                </md-input-container>
+            </div>
+
+            <!-- share by -->
+            <div ng-if="ctrl.settingsService.generalSettings.graded">
+                <div layout="row" class="instructions" ng-if="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                    <p class="var-label"></p>
+
+                    <p class="md-caption" flex="">Disabled. Choose any <em>Social Media</em> for enable this option.</p>
+                    <p></p>
+                </div>
+                <div layout="row" class="option">
+                    <p class="var-label"><strong>Share page according to</strong></p>
+                    <md-radio-group ng-model="ctrl.settingsService.score.share.shareBy" layout="row">
+                        <md-radio-button aria-label="none" value="points" class="md-primary" ng-disabled="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                            Points
+                        </md-radio-button>
+                        <md-radio-button aria-label="mysql" value="percentage" class="md-primary" ng-disabled="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                            Percentage
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+            </div>
+
+
+            <!-- breakpoints share -->
+            <div flex="" class="md-whiteframe-3dp score-break">
+                <p class="md-caption" ng-if="!ctrl.settingsService.generalSettings.personality &amp;&amp; (ctrl.settingsService.score.share.twitter || ctrl.settingsService.score.share.gplus || ctrl.settingsService.score.share.facebook || ctrl.settingsService.score.share.linkedin)">
+                    Assign different URLs for share according to the
+                    <strong>{{ctrl.settingsService.score.share.shareBy}}</strong> scored (greater or equal than...)
+                    Important if you want <strong>different metadata</strong> (share different images, show a twitter, facebook, linkedin or gplus
+                    customized card, etc). If you want to customize the twitter text, you can do it in the
+                    templates/score.html file.</p>
+                <p class="md-caption" ng-if="ctrl.settingsService.generalSettings.personality &amp;&amp; (ctrl.settingsService.score.share.twitter || ctrl.settingsService.score.share.gplus || ctrl.settingsService.score.share.facebook || ctrl.settingsService.score.share.linkedin)">
+                    Assign different URLs for share according to the <strong>winning personality</strong>.
+                    Important if you want <strong>different metadata</strong> (share different images, show a twitter, facebook, linkedin or gplus
+                    customized card, etc). If you want to customize the twitter text, you can do it in the
+                    templates/score.html file.</p>
+                <p class="md-caption" ng-if="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                    Disabled. Select any <em>Social Media</em> for enable this option.</p>
+
+                <div layout="row" flex="" ng-repeat="share in ctrl.settingsService.score.share.customShareURL">
+
+                    <md-input-container flex="15" class="break-points-score" ng-if="!ctrl.settingsService.generalSettings.personality">
+                        <label>p &gt;= than</label>
+                        <input type="number" ng-model="share.greaterThan" ng-disabled="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                    </md-input-container>
+
+                    <md-input-container ng-if="ctrl.settingsService.generalSettings.personality">
+                        <md-select ng-model="share.personality" placeholder="personality" class="break-select-score">
+                            <md-option ng-repeat="result in ctrl.settingsService.generalSettings.personalities" aria-label="{{result}}" value="{{result}}" class="md-primary" <span="" ng-bind-html="result">
+                            </md-option>
+
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container flex="">
+                        <label>URL</label>
+                        <input ng-model="share.url" ng-disabled="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                    </md-input-container>
+
+                    <md-button class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.removeBreakpoint(ctrl.settingsService.score.share.customShareURL, $index)" ng-disabled="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+
+                </div>
+
+                <div layout="row" layout-align="center center">
+                    <md-button ng-click="ctrl.addBreakpointShare(ctrl.settingsService.score.share.customShareURL)" ng-disabled="!ctrl.settingsService.score.share.twitter &amp;&amp; !ctrl.settingsService.score.share.gplus &amp;&amp; !ctrl.settingsService.score.share.facebook &amp;&amp; !ctrl.settingsService.score.share.linkedin">
+                        <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                        Add URL
+                    </md-button>
+                </div>
+            </div>
+
+        </div>
+    </md-tab>
+
+
+    <!-- database -->
+
+    <!--<md-tab label="Database">
+        <div layout-padding="">
+            <h2 class="md-headline">Database</h2>
+
+            <md-divider></md-divider>
+
+
+            &lt;!&ndash; send to database &ndash;&gt;
+
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Send to database</strong></p>
+                <md-radio-group ng-model="ctrl.database" layout="row" ng-change="ctrl.onChangeDatabase()">
+                    <md-radio-button aria-label="none" value="none" class="md-primary">
+                        None
+                    </md-radio-button>
+                    <md-radio-button aria-label="mysql" value="mysql" class="md-primary">
+                        MySQL
+                    </md-radio-button>
+                    <md-radio-button aria-label="parse" value="parse" class="md-primary">
+                        Parse (deprecated)
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+
+
+            <md-divider></md-divider>
+
+
+            &lt;!&ndash; parse &ndash;&gt;
+            <div layout="row" class="option" ng-if="ctrl.database === &#39;parse&#39;">
+                <p class="var-label"></p>
+
+                <p class="md-caption">Create an app at <a href="https://www.parse.com/">parse.com</a> and grab your
+                    keys.</p>
+            </div>
+
+            <div layout="row" class="option" ng-if="ctrl.database === &#39;parse&#39;">
+                <p class="var-label"><strong>Parse Application ID</strong></p>
+                <md-input-container md-no-float="" flex="">
+                    <input type="text" ng-model="ctrl.settingsService.database.applicationId" aria-label="Application ID" ng-disabled="!ctrl.database">
+                </md-input-container>
+            </div>
+
+            <div layout="row" class="option" ng-if="ctrl.database === &#39;parse&#39;">
+                <p class="var-label"><strong>Parse Javascript Key</strong></p>
+                <md-input-container md-no-float="" flex="">
+                    <input type="text" ng-model="ctrl.settingsService.database.javascriptKey" aria-label="Javascript Key" ng-disabled="!ctrl.database">
+                </md-input-container>
+            </div>
+
+
+            <md-divider></md-divider>
+
+            &lt;!&ndash; database name &ndash;&gt;
+            <div layout="row" class="option" ng-if="ctrl.database === &#39;mysql&#39; || ctrl.database === &#39;parse&#39;">
+                <p class="var-label"></p>
+                <p class="md-caption">Enter a name for your table</p>
+            </div>
+
+            <div layout="row" class="instructions" ng-if="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                <p class="var-label"></p>
+                <p class="md-caption" flex="">Disabled. Select <em>MySQL or Parse</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Table name</strong></p>
+                <md-input-container md-no-float="" flex="">
+                    <input type="text" ng-model="ctrl.settingsService.database.tableName" aria-label="Table name" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                </md-input-container>
+            </div>
+
+
+            <md-divider></md-divider>
+
+
+            &lt;!&ndash; submit button and form &ndash;&gt;
+            <div layout="row" class="instructions" ng-if="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>MySQL or Parse</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Submit button</strong></p>
+
+                <md-radio-group ng-model="ctrl.settingsService.database.sendFrom">
+                    <md-radio-button aria-label="Send from score" value="score" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>Send from the score page</span>
+                    </md-radio-button>
+
+                    <md-radio-button aria-label="Send after the last question" value="lastPage" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>Send after the last question</span>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+
+
+            <md-divider></md-divider>
+
+            &lt;!&ndash; user data &ndash;&gt;
+            <div layout="row" class="instructions" ng-if="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>MySQL or Parse</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Send user data</strong></p>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.name" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                    Name
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.email" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                    Email
+                </md-checkbox>
+            </div>
+            &lt;!&ndash; form &ndash;&gt;
+            <div layout="row" class="option" ng-if="ctrl.settingsService.database.name===true || ctrl.settingsService.database.email===true">
+                <p class="var-label"><strong>Show form</strong></p>
+                <md-radio-group ng-model="ctrl.settingsService.showForm2">
+                    <md-radio-button ng-if="ctrl.settingsService.database.sendFrom===&#39;score&#39;" aria-label="Show on the score page" value="score" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>On the score page</span>
+                    </md-radio-button>
+                    <md-radio-button aria-label="Show on the homepage" value="home" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>On the homepage</span>
+                    </md-radio-button>
+                    <md-radio-button aria-label="Show on the last page" value="last" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>On the last page, after the last question</span>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+
+
+            <md-divider></md-divider>
+
+            &lt;!&ndash; data to send &ndash;&gt;
+            <div layout="row" class="instructions" ng-if="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>MySQL or Parse</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Send quiz data</strong></p>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.sendPercentage" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;" ng-if="ctrl.settingsService.generalSettings.graded">
+                    Send Percentage
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.sendPoints" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;" ng-if="ctrl.settingsService.generalSettings.graded || ctrl.settingsService.generalSettings.weighted">
+                    Send Points
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.sendAnswers" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                    Send user answers
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.sendWinningPersonality" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;" ng-if="ctrl.settingsService.generalSettings.personality">
+                    Send winning personality
+                </md-checkbox>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.sendFrequency" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;" ng-if="ctrl.settingsService.generalSettings.personality">
+                    Send personality frequencies
+                </md-checkbox>
+            </div>
+
+            <md-divider></md-divider>
+
+            &lt;!&ndash; show success &ndash;&gt;
+            <div layout="row" class="instructions" ng-if="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>MySQL or Parse</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>Show success </strong></p>
+                <md-checkbox class="md-primary" ng-model="ctrl.settingsService.database.showSuccess" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                    Show a success popup when send the data
+                </md-checkbox>
+            </div>
+
+
+            <md-divider></md-divider>
+
+
+            &lt;!&ndash; goTo &ndash;&gt;
+            <div layout="row" class="instructions" ng-if="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                <p class="var-label"></p>
+
+                <p class="md-caption" flex="">Disabled. Select <em>MySQL or Parse</em> for enable this option.</p>
+            </div>
+            <div layout="row" class="option">
+                <p class="var-label"><strong>After sending go to</strong></p>
+
+                <md-radio-group ng-model="ctrl.settingsService.database.goTo">
+                    <md-radio-button aria-label="none" value="none" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>None</span>
+                    </md-radio-button>
+
+                    <md-radio-button aria-label="home" value="home" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>Home</span>
+                    </md-radio-button>
+
+                    <md-radio-button aria-label="score" value="score" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>Score</span>
+                    </md-radio-button>
+
+                    <md-radio-button aria-label="thanks" value="thanks" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>Thanks</span>
+                    </md-radio-button>
+
+                    <md-radio-button aria-label="firstQuestion" value="firstQuestion" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>First question</span>
+                    </md-radio-button>
+
+                    <md-radio-button aria-label="url" value="url" class="md-primary" ng-disabled="ctrl.database != &#39;mysql&#39; &amp;&amp; ctrl.database != &#39;parse&#39;">
+                        <span>URL</span>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+
+            <div layout="row" class="option" ng-if="ctrl.settingsService.database.goTo===&#39;url&#39;">
+                <p class="var-label"></p>
+                <md-input-container flex="" class="url">
+                    <label>URL</label>
+                    <input type="url" name="url" ng-model="ctrl.settingsService.database.goToUrl">
+                </md-input-container>
+            </div>
+
+        </div>
+    </md-tab>-->
+
+
+</md-tabs>
+
+</body></html>

@@ -1,0 +1,1409 @@
+
+<!-- saved from url=(0052)http://quickquiz.ws/builder/templates/questions.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body class=" hasGoogleVoiceExt" cz-shortcut-listen="true"><div layout-padding="" layout="row">
+
+
+    <div flex="80" class="questions-column" ng-if="ctrl.pageSelected&gt;=0">
+
+
+        <md-tabs md-dynamic-height="" md-border-bottom="">
+
+            <!-- questions -->
+
+            <md-tab label="questions">
+                <div layout="column" layout-padding="" class="questions-tab">
+                    <div ng-repeat="question in ctrl.questionsService.pages[ctrl.pageSelected].questions">
+
+                        <div class="question-frame" id="q-{{$index}}">
+
+                            <md-toolbar>
+                                <div class="md-toolbar-tools">
+                                    <p>{{$index+1}}.
+                                        <span ng-if="question.type!=&#39;matrix&#39;">{{ctrl.questionTypeMenu[ctrl.questionType.indexOf(question.type)]}}</span>
+                                        <span ng-if="question.type===&#39;matrix&#39; &amp;&amp; question.choicesType===&#39;radio&#39;">Matrix - Radio</span>
+                                        <span ng-if="question.type===&#39;matrix&#39; &amp;&amp; question.choicesType===&#39;rating&#39;">Matrix - Rating</span>
+                                    </p>
+                                    <span flex=""></span>
+                                    <md-button class="md-icon-button" aria-label="Edit" ng-class="{ active: question.showSource }" ng-click="question.showSource = !question.showSource">
+                                        <md-icon md-svg-icon="css/icons/edit.svg"></md-icon>
+                                    </md-button>
+
+                                    <md-button class="md-icon-button" aria-label="Remove question" ng-click="ctrl.deleteQuestion($index)">
+                                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                                    </md-button>
+                                </div>
+                            </md-toolbar>
+
+
+                            <div class="md-whiteframe-3dp editing-question" ng-cloak="" ng-if="question.showSource">
+                                <!-- cuePoint -->
+                                <div ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0 || ctrl.questionsService.pages[ctrl.pageSelected].youtube.length&gt;0">
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+
+                                        <p class="md-caption" flex="">Second of the video you want this question to
+                                            appear.</p>
+                                    </div>
+
+                                    <div layout="row">
+                                        <p class="qlabel">Cue point </p>
+                                        <md-input-container md-no-float="">
+                                            <input type="number" ng-model="question.cuePoint" aria-label="cue point">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <!--statement, description, ID, and header -->
+                                <div>
+                                    <md-divider ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0"></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel">Statement</p>
+                                        <md-input-container flex="" md-no-float="">
+                                                    <textarea ng-model="question.statement" aria-label="statement" placeholder="Write here the statement"></textarea>
+                                        </md-input-container>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Description</p>
+                                        <md-input-container flex="" md-no-float="">
+                                                    <textarea ng-model="question.description" aria-label="description" placeholder="Optional description (plain text or basic HTML)"></textarea>
+                                        </md-input-container>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">ID</p>
+                                        <md-input-container flex="" md-no-float="">
+                                            <input ng-model="question.qID" placeholder="Optional ID useful for database, conditional paths (coming soon), etc." ng-change="ctrl.onChangeID($index)">
+                                        </md-input-container>
+
+                                    </div>
+                                    <div layout="row" ng-if="question.choicesType===&#39;rating&#39;">
+                                        <p class="qlabel">Header</p>
+                                        <md-input-container flex="" md-no-float="">
+                                                    <textarea ng-model="question.header" aria-label="header" placeholder="Optional header for the rating column"></textarea>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <!-- graded -->
+                                <div ng-if="question.type != &#39;likert-scale&#39; &amp;&amp; question.type != &#39;rating&#39; &amp;&amp; question.type != &#39;long-answer&#39; &amp;&amp; question.choicesType != &#39;rating&#39;
+                                             &amp;&amp; ctrl.settingsService.generalSettings.graded===true">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Select if this is a graded question (it has a
+                                            right/wrong answer).</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Graded</p>
+                                        <md-switch class="md-primary var-label" aria-label="graded" ng-model="question.graded" ng-change="ctrl.onChangeGradedQuestion($index)">
+                                        </md-switch>
+                                    </div>
+                                </div>
+
+
+                                <!-- images -->
+                                <div ng-if="(question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39;) &amp;&amp; question.choicesType != &#39;select&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Select if this is an images question, i.e., if the
+                                            choices are images.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Image question</p>
+                                        <md-switch class="md-primary var-label" aria-label="images" ng-model="question.images">
+                                        </md-switch>
+                                    </div>
+                                </div>
+
+                                <!-- images matching pairs-->
+                                <div ng-if="question.type === &#39;matching-pairs&#39;  &amp;&amp; question.choicesType != &#39;select&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Select if left and/or righ choices are images.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Images Left</p>
+                                        <md-switch class="md-primary var-label" aria-label="images" ng-model="question.imagesLeft">
+                                        </md-switch>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Images Right</p>
+                                        <md-switch class="md-primary var-label" aria-label="images" ng-model="question.imagesRight">
+                                        </md-switch>
+                                    </div>
+                                </div>
+
+                                <!-- left choices matching-pairs -->
+                                <div ng-if="question.type === &#39;matching-pairs&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" ng-if="question.imagesLeft">Enter the absolute URL of each
+                                            image and press enter.</p>
+                                        <p class="md-caption" ng-if="!question.imagesLeft">Write each left choice in the
+                                            order you want them to appear and press enter.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Left choices</p>
+                                        <md-chips flex="" ng-model="question.choicesLeft" placeholder="Next left choice" delete-button-label="Remove option" delete-hint="Press delete to remove option" secondary-placeholder="First left choice" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        </md-chips>
+                                    </div>
+                                </div>
+
+                                <!-- right choices matching-pairs-->
+                                <div ng-if="question.type === &#39;matching-pairs&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" ng-if="question.imagesRight">Enter the absolute URL of
+                                            each image and press enter.</p>
+                                        <p class="md-caption" ng-if="!question.imagesRight">Write each right choice in
+                                            the order you want them to appear and press enter.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Right choices</p>
+                                        <md-chips flex="" ng-model="question.choicesRight" placeholder="Next right choice" delete-button-label="Remove choice" delete-hint="Press delete to remove choice" secondary-placeholder="First right choice" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        </md-chips>
+                                    </div>
+                                </div>
+
+
+                                <!-- choices -->
+                                <div ng-if="question.type === &#39;sequence&#39; || question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39; ||
+                                            (question.type === &#39;matrix&#39; &amp;&amp; question.choicesType === &#39;radio&#39;)">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" ng-if="question.images">Enter the absolute URL of each
+                                            image and press enter.</p>
+                                        <p class="md-caption" ng-if="!question.images">Write each choice and press
+                                            enter.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Choices</p>
+                                        <md-chips flex="" ng-model="question.choices" placeholder="Next choice" delete-button-label="Remove choice" delete-hint="Press delete to remove choice" secondary-placeholder="First choice" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        </md-chips>
+                                    </div>
+                                </div>
+
+                                <!-- rows -->
+                                <div ng-if="question.type === &#39;matrix&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" ng-if="!question.images">Write each row and press
+                                            enter.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Rows</p>
+                                        <md-chips flex="" ng-model="question.rows" placeholder="Next row" delete-button-label="Remove row" delete-hint="Press delete to remove row" secondary-placeholder="First row" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        </md-chips>
+                                    </div>
+                                </div>
+
+                                <!-- rows id -->
+                                <div ng-if="question.type === &#39;matrix&#39; &amp;&amp; question.rows.length&gt;0 &amp;&amp; ctrl.settingsService.database.selected != &#39;none&#39;">
+                                    <md-divider></md-divider>
+
+                                    <div layout="row" ng-repeat="row in question.rows">
+                                        <p class="qlabel" ng-if="$first">Rows ID</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="row" layout-fill="">
+                                            <p>{{question.rows[$index]}} - &nbsp; &nbsp;</p>
+                                            <md-input-container flex="" md-no-float="">
+                                                <input flex="" ng-model="question.rID[$index]" aria-label="question.rID" placeholder="Optional. Column name for this row in the database." ng-change="ctrl.onChangeRID($parent.$index,$index)">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- other option -->
+                                <div ng-if="!question.graded &amp;&amp; !question.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality &amp;&amp; (question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39;)">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Select if you want to add an "other" option with an
+                                            input text.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Other</p>
+                                        <md-switch class="md-primary var-label" aria-label="other" ng-model="question.otherOption" ng-change="ctrl.onChangeOtherOption($index)">
+                                        </md-switch>
+                                    </div>
+                                </div>
+
+                                <div layout="row" ng-if="question.otherOption">
+                                    <p class="qlabel">Other option text</p>
+                                    <md-input-container flex="" md-no-float="">
+                                        <input ng-model="question.other.text" placeholder="Text for &#39;Other&#39; option" aria-label="other text" md-no-float="">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout="row" ng-if="question.otherOption">
+                                    <p class="qlabel">Other placeholder</p>
+                                    <md-input-container flex="" md-no-float="">
+                                        <input ng-model="question.other.placeholder" placeholder="Placeholder for &#39;Other&#39; input text" aria-label="other placeholder" md-no-float="">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout="row" ng-if="question.otherOption">
+                                    <p class="qlabel">Input position</p>
+                                    <md-radio-group ng-model="question.other.position" layout="row">
+                                        <md-radio-button aria-label="right" value="right" class="md-primary">
+                                            Right
+                                        </md-radio-button>
+                                        <md-radio-button aria-label="bottom" value="bottom" class="md-primary">
+                                            Bottom
+                                        </md-radio-button>
+                                    </md-radio-group>
+                                </div>
+
+
+                                <!-- solution for single answers -->
+                                <div ng-if="question.graded &amp;&amp; question.type === &#39;single-answer&#39; &amp;&amp; question.choices.length&gt;1">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption solution-alert" ng-if="!question.solution">Important! This
+                                            is a graded question. Select the right answer</p>
+                                        <p class="md-caption" ng-if="question.solution">Select the right answer</p>
+                                    </div>
+
+                                    <div layout="row">
+                                        <p class="qlabel">Solution</p>
+                                        <md-select flex="" class="matching-select" ng-model="question.solution" aria-label="question.solution">
+                                            <md-option ng-repeat="choice in question.choices" value="{{this.$index}}">{{choice}}
+                                            </md-option>
+                                        </md-select>
+                                    </div>
+                                </div>
+
+
+                                <!-- solution for multiple answers -->
+                                <div ng-if="question.graded &amp;&amp; question.type === &#39;multiple-answers&#39; &amp;&amp; question.choices.length&gt;1">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption solution-alert" ng-if="question.solution.length === 0">
+                                            Important! This is a graded question. Select all the right answers</p>
+                                        <p class="md-caption" ng-if="question.solution.length&gt;0">Select all the right
+                                            answers</p>
+                                    </div>
+
+                                    <div layout="row" ng-repeat="choice in question.choices">
+                                        <p class="qlabel" ng-if="$first">Solution</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="row">
+                                            <md-checkbox flex="" class="md-primary" aria-label="question.solution" ng-model="question.solution[this.$index]" value="{{this.$index}}">
+                                                {{choice}}
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- solution for sequence -->
+                                <div ng-if="question.graded &amp;&amp; question.type === &#39;sequence&#39; &amp;&amp; question.choices.length&gt;1">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption solution-alert" ng-if="question.solution.length === 0">
+                                            Important! This is a graded question. Select the solution for each position
+                                            in the sequence</p>
+                                        <p class="md-caption" ng-if="question.solution.length &gt; 0">Select the solution
+                                            for each position in the sequence</p>
+                                    </div>
+
+                                    <div layout="row" ng-repeat="option in question.choices">
+                                        <p class="qlabel" ng-if="$first">Solution</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="row">
+                                            <p>{{$index+1}} - &nbsp; &nbsp;</p>
+                                            <md-select flex="" class="matching-select" ng-model="question.solution[$index]" aria-label="question.solution">
+                                                <md-option ng-repeat="choice in question.choices" value="{{this.$index}}">{{choice}}
+                                                </md-option>
+                                            </md-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- solution for matching pairs -->
+                                <div ng-if="question.graded &amp;&amp; question.type === &#39;matching-pairs&#39; &amp;&amp; question.choicesLeft.length&gt;1 &amp;&amp; question.choicesRight.length === question.choicesLeft.length">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption solution-alert" ng-if="question.solution.length === 0">
+                                            Important! This is a graded question. Select the solution for each left
+                                            option</p>
+                                        <p class="md-caption" ng-if="question.solution.length &gt; 0">Select the solution
+                                            for each left option</p>
+                                    </div>
+
+                                    <div layout="row" ng-repeat="option in question.choicesLeft">
+                                        <p class="qlabel" ng-if="$first">Solution</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="row">
+                                            <p>{{question.choicesLeft[$index]}} - &nbsp; &nbsp;</p>
+                                            <md-select flex="" class="matching-select" ng-model="question.solution[$index]" aria-label="question.solution">
+                                                <md-option ng-repeat="choice in question.choicesRight" value="{{this.$index}}">{{choice}}
+                                                </md-option>
+                                            </md-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- solution for matrix -->
+                                <div ng-if="question.graded &amp;&amp; question.type === &#39;matrix&#39; &amp;&amp; question.rows.length&gt;0 &amp;&amp; question.choices.length&gt;0">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption solution-alert" ng-if="question.solution.length === 0">
+                                            Important! This is a graded question. Select the solution for each row</p>
+                                        <p class="md-caption" ng-if="question.solution.length &gt; 0">Select the solution
+                                            for each row</p>
+                                    </div>
+
+                                    <div layout="row" ng-repeat="row in question.rows">
+                                        <p class="qlabel" ng-if="$first">Solution</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="row">
+                                            <p>{{question.rows[$index]}} - &nbsp; &nbsp;</p>
+                                            <md-select flex="" class="matching-select" ng-model="question.solution[$index]" aria-label="question.solution">
+                                                <md-option ng-repeat="choice in question.choices" value="{{this.$index}}">{{choice}}
+                                                </md-option>
+                                            </md-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--scale text left, center and right-->
+                                <div ng-if="question.type === &#39;likert-scale&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel">Top text</p>
+
+                                        <div layout="row" flex="">
+                                            <md-input-container flex="">
+                                                <label>Left</label>
+                                                <input ng-model="question.scaleTextLeft" aria-label="text left">
+                                            </md-input-container>
+                                            <md-input-container flex="">
+                                                <label>Center</label>
+                                                <input ng-model="question.scaleTextCenter" aria-label="text center">
+                                            </md-input-container>
+                                            <md-input-container flex="">
+                                                <label>Right</label>
+                                                <input ng-model="question.scaleTextRight" aria-label="text right">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- scale numbers min-->
+                                <div ng-if="question.type === &#39;likert-scale&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel">Minimum value</p>
+                                        <md-input-container md-no-float="">
+                                            <input type="number" ng-model="question.minValue" aria-label="minimum value" ng-change="ctrl.onChangeLikertValues($index)">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <!-- scale numbers max-->
+                                <div layout="row" ng-if="question.type === &#39;likert-scale&#39;">
+                                    <p class="qlabel">Maximum value</p>
+                                    <md-input-container md-no-float="">
+                                        <input type="number" ng-model="question.maxValue" aria-label="maximum value" ng-change="ctrl.onChangeLikertValues($index)">
+                                    </md-input-container>
+                                </div>
+
+                                <!-- rating number -->
+                                <div ng-if="question.type === &#39;rating&#39; || question.choicesType === &#39;rating&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel">Max Number</p>
+                                        <md-input-container md-no-float="">
+                                            <input type="number" min="1" max="10" ng-model="question.maxValue" aria-label="maximum value" ng-change="ctrl.onChangeRatingValues($index)">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <!-- weighted -->
+                                <div ng-if="question.type != &#39;matching-pairs&#39; &amp;&amp; question.type != &#39;sequence&#39; &amp;&amp; question.type != &#39;long-answer&#39; &amp;&amp; question.type != &#39;short-answer&#39;
+                                             &amp;&amp; ctrl.settingsService.generalSettings.weighted===true">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="" ng-if="question.type===&#39;single-answer&#39; || question.type===&#39;multiple-answers&#39;">
+                                            Select if this is a weighted question (different points depending on the
+                                            user answer).</p>
+                                        <p class="md-caption" flex="" ng-if="question.type===&#39;likert-scale&#39; || question.type===&#39;rating&#39; || question.choicesType===&#39;rating&#39;">
+                                            Select if
+                                            this is a weighted question (include the user answer in the final
+                                            score).</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Weighted</p>
+                                        <md-switch class="md-primary var-label" aria-label="graded" ng-model="question.weighted" ng-change="ctrl.onChangeWeightedQuestion($index)">
+                                        </md-switch>
+                                    </div>
+
+                                    <!-- custom values -->
+                                    <div layout="row" ng-if="question.weighted &amp;&amp; (question.type===&#39;likert-scale&#39;">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="" ng-if="question.type===&#39;likert-scale&#39;">Select only if
+                                            the value for the score does not match the scale value</p>
+                                        <p class="md-caption" flex="" ng-if="question.type===&#39;rating&#39; || question.choicesType===&#39;rating&#39;">Select
+                                            only if the
+                                            value for the score does not match the rating value</p>
+                                    </div>
+                                    <div layout="row" ng-if="question.weighted &amp;&amp; question.type===&#39;likert-scale&#39;">
+
+                                        <p class="qlabel">Custom values</p>
+                                        <md-switch class="md-primary var-label" aria-label="customWeightedValues" ng-model="question.customWeightedValues">
+                                        </md-switch>
+                                    </div>
+                                </div>
+
+
+                                <!-- weight for single and multiple answers -->
+                                <div ng-if="question.weighted &amp;&amp; question.choices.length&gt;0 &amp;&amp;
+                                (question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39;)">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption">Set the points per each choice</p>
+                                    </div>
+
+                                    <div layout="row" ng-repeat="choice in question.choices">
+                                        <p class="qlabel" ng-if="$first">Choices Points</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="row" class="qq_choicesWeight">
+                                            <p flex="">{{choice}}</p>
+                                            <md-input-container md-no-float="" flex="">
+                                                <input type="number" ng-model="question.choicesWeight[this.$index]" aria-label="weight" placeholder="points" ng-init="question.choicesWeight[this.$index] = 0">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- personality for single and multiple answers -->
+                                <div ng-if="ctrl.settingsService.generalSettings.personality &amp;&amp; question.choices.length&gt;0 &amp;&amp;
+                                (question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39;)">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption">Set the points per each personality and choice (select
+                                            <em>General Settings - Personality</em> to add personalities)</p>
+                                    </div>
+
+                                    <div layout="row" ng-repeat="choice in question.choices">
+                                        <p class="qlabel" ng-if="$first">Personality Points</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="column" class="choices-personality">
+                                            <p><strong>{{choice}}</strong></p>
+
+                                            <div layout="row" layout-align="space-between center" ng-repeat="result in ctrl.settingsService.generalSettings.personalities" class="personality-points">
+                                                <div flex="75"><em>{{result}}</em></div>
+                                                <md-input-container md-no-float="" flex="25">
+                                                    <input type="number" ng-model="question.associatedPersonality[$parent.$index][this.$index]" aria-label="weight" placeholder="points">
+                                                </md-input-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- weigth for likert scale or rating-->
+                                <div ng-if="question.weighted &amp;&amp; question.customWeightedValues &amp;&amp; (question.type === &#39;likert-scale&#39; || question.type === &#39;rating&#39;)">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption">Set the points per each value</p>
+                                    </div>
+
+                                    <div layout="row" ng-repeat="i in question.customValues">
+                                        <p class="qlabel" ng-if="$first">Value / Points</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <div layout="row" class="qq_choicesWeight">
+                                            <p flex="15">{{i}}</p>
+                                            <md-input-container md-no-float="" flex="15">
+                                                <input type="number" ng-model="question.choicesWeight[this.$index]" aria-label="weight" placeholder="points" ng-init="question.choicesWeight[this.$index] = 0">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- weigth for matrix-rating-->
+                                <div ng-if="question.weighted &amp;&amp; question.customWeightedValues &amp;&amp; question.choicesType === &#39;rating&#39; &amp;&amp; question.rows.length&gt;0">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption">Set the points per each value</p>
+                                    </div>
+
+                                    <div layout="row">
+                                        <p class="qlabel" ng-if="$first">Row/Value/Points</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <ul class="matrix-weighted-rating">
+                                            <li ng-repeat="row in question.rows">{{row}}
+                                                <ul>
+                                                    <li ng-repeat="value in question.customValues">{{value}}
+                                                        <md-input-container md-no-float="">
+                                                            <input type="number" ng-model="question.choicesWeight[$parent.$index][this.$index]" aria-label="weight" placeholder="points" ng-init="question.choicesWeight[$parent.$index][this.$index] = 0">
+                                                        </md-input-container>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- weigth for matrix-radio-->
+                                <div ng-if="question.weighted &amp;&amp; question.type===&#39;matrix&#39; &amp;&amp; question.choicesType === &#39;radio&#39; &amp;&amp; question.rows.length&gt;0 &amp;&amp; question.choices.length&gt;0">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption">Set the points per each row and choice</p>
+                                    </div>
+
+                                    <div layout="row">
+                                        <p class="qlabel" ng-if="$first">Row/Choice/Points</p>
+                                        <p class="qlabel" ng-if="!$first"></p>
+                                        <ul class="matrix-weighted-radio">
+                                            <li ng-repeat="row in question.rows">{{row}}
+                                                <ul>
+                                                    <li ng-repeat="choice in question.choices">{{choice}}
+                                                        <md-input-container md-no-float="">
+                                                            <input type="number" ng-model="question.choicesWeight[$parent.$index][this.$index]" aria-label="weight" placeholder="points" ng-init="question.choicesWeight[$parent.$index][this.$index] = 0">
+                                                        </md-input-container>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <!--placeholder-->
+                                <div ng-if="question.type === &#39;short-answer&#39; || question.type === &#39;long-answer&#39;">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption">Optional default text.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Placeholder</p>
+                                        <md-input-container flex="">
+                                            <input ng-model="question.placeholder" aria-label="placeholder">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+
+                                <!-- solutions for short-answer -->
+                                <div ng-if="question.type === &#39;short-answer&#39; &amp;&amp; question.graded">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+
+                                        <p class="md-caption solution-alert" ng-if="question.solution.length === 0">
+                                            Important! This is a graded question. Enter all the possibly right
+                                            answers.
+                                            The first
+                                            answer will
+                                            be considered the best, so it appears on the score page as a
+                                            solution if the
+                                            user answers incorrectly. Upper / lower case do not matter to detect
+                                            whether
+                                            an answer is correct.</p>
+
+                                        <p class="md-caption" ng-if="question.solution.length &gt; 0">Enter all the
+                                            possibly right answers. The first
+                                            answer will
+                                            be considered the best, so it appears on the score page as a
+                                            solution if the
+                                            user answers incorrectly. Upper / lower case do not matter to detect
+                                            whether
+                                            an answer is correct.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Possible solutions</p>
+                                        <md-chips flex="" ng-model="question.solution" placeholder="Enter another solution" delete-button-label="Remove solution" delete-hint="Press delete to remove solution" secondary-placeholder="Enter the best solution">
+                                        </md-chips>
+                                    </div>
+                                </div>
+
+                                <!-- sample solution for long answer -->
+                                <div ng-if="question.type === &#39;long-answer&#39; &amp;&amp; ctrl.settingsService.score.showSolution">
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+
+                                        <p class="md-caption">Optional sample solution for the score page.</p>
+                                    </div>
+
+                                    <div layout="row">
+                                        <p class="qlabel">Sample solution</p>
+                                        <md-input-container flex="">
+                                                    <textarea ng-model="question.sampleSolution" aria-label="sample solution"></textarea>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+
+                                <!-- points-->
+                                <div ng-if="question.graded === true">
+                                    <md-divider></md-divider>
+                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">How many points worth this question?</p>
+                                    </div>
+
+                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                        <p class="qlabel">Points</p>
+                                        <md-input-container md-no-float="">
+                                            <input type="number" ng-model="question.points" min="0" aria-label="points&quot;" ng-change="ctrl.onPointsChanged($index)">
+                                        </md-input-container>
+                                    </div>
+                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Penalty points if this question is answered
+                                            incorrectly (negative numbers only).</p>
+                                    </div>
+                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                        <p class="qlabel">Penalty points</p>
+                                        <md-input-container md-no-float="">
+                                            <input type="number" ng-model="question.penaltyPoints" max="0" aria-label="points&quot;" ng-change="ctrl.onPenaltyPointsChanged($index)">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+
+                                <!-- ADVANCED OPTIONS -->
+
+
+                                <div ng-if="question.showAdvancedOptions">
+
+                                    <!-- choicesType -->
+                                    <div ng-if="question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39; || question.type === &#39;matching-pairs&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row" ng-if="question.otherOption &amp;&amp; question.type === &#39;single-answer&#39;">
+                                            <p class="qlabel"></p>
+                                            <p class="md-caption" flex="">"Other" option is only compatible with radio
+                                                buttons.</p>
+                                        </div>
+                                        <div layout="row" ng-if="question.otherOption &amp;&amp; question.type === &#39;multiple-answers&#39;">
+                                            <p class="qlabel"></p>
+                                            <p class="md-caption" flex="">"Other" option is only compatible with
+                                                checkbox.</p>
+                                        </div>
+                                        <div layout="row">
+                                            <p class="qlabel">Choices Type</p>
+                                            <md-radio-group ng-model="question.choicesType">
+                                                <md-radio-button aria-label="button" value="button" class="md-primary" ng-disabled="question.otherOption">
+                                                    Button
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="radio" value="radio" class="md-primary" ng-if="question.type === &#39;single-answer&#39;" ng-disabled="question.otherOption">
+                                                    Radio
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="checkbox" value="checkbox" class="md-primary" ng-if="question.type === &#39;multiple-answers&#39;" ng-disabled="question.otherOption">
+                                                    Checkbox
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="select" value="select" class="md-primary" ng-if="question.type != &#39;multiple-answer&#39;" ng-disabled="question.otherOption">
+                                                    Select
+                                                </md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+
+                                    <!--placeholder-->
+                                    <div ng-if="question.choicesType === &#39;select&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+                                            <p class="md-caption">Optional default text.</p>
+                                        </div>
+                                        <div layout="row">
+                                            <p class="qlabel">Placeholder</p>
+                                            <md-input-container flex="">
+                                                <input ng-model="question.placeholder" aria-label="placeholder">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+
+                                    <!-- scale type -->
+                                    <div ng-if="question.type === &#39;likert-scale&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel">Scale type</p>
+                                            <md-radio-group ng-model="question.scaleType">
+                                                <md-radio-button aria-label="button" value="button" class="md-primary">
+                                                    Button
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="slider" value="slider" class="md-primary">
+                                                    Slider
+                                                </md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- scale default value-->
+                                    <div ng-if="question.type === &#39;likert-scale&#39; &amp;&amp; question.scaleType===&#39;slider&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+
+                                            <p class="md-caption" flex="">Set a default value if you want the
+                                                slider can be selected using the arrow keys.</p>
+                                        </div>
+                                        <div layout="row">
+                                            <p class="qlabel">Default value</p>
+                                            <md-input-container md-no-float="">
+                                                <input type="number" min="{{question.minValue}}" max="{{question.maxValue}}" ng-model="question.defaultValue" aria-label="default value">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+
+                                    <!-- scale show number steps-->
+                                    <div ng-if="question.type === &#39;likert-scale&#39; &amp;&amp; question.scaleType===&#39;slider&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+
+                                            <p class="md-caption" flex="">Show the number when a value is
+                                                selected.</p>
+                                        </div>
+                                        <div layout="row">
+                                            <p class="qlabel">Show number</p>
+
+                                            <md-switch class="md-primary var-label" aria-label="show number steps" ng-model="question.showNumberSteps">
+                                            </md-switch>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- rating icon -->
+                                    <div ng-if="question.type === &#39;rating&#39; || question.choicesType === &#39;rating&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel">Select icon</p>
+                                            <md-radio-group ng-model="question.icon">
+                                                <md-radio-button aria-label="star" value="star" class="md-primary">
+                                                    <md-icon md-svg-icon="css/icons/grade.svg"></md-icon>
+                                                    Stars
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="thumb-up" value="thumb-up" class="md-primary">
+                                                    <md-icon md-svg-icon="css/icons/thumb_up.svg"></md-icon>
+                                                    Thumbs-up
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="heart" value="heart" class="md-primary">
+                                                    <md-icon md-svg-icon="css/icons/favorite.svg"></md-icon>
+                                                    Hearts
+                                                </md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- required -->
+                                    <div ng-if="ctrl.settingsService.generalSettings.requiredQuestions !== true">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+                                            <p class="md-caption" flex="">Select if this question is required. If all
+                                                questions are required you can select <em>Settings -&gt; General
+                                                    Settings
+                                                    -&gt; All required questions</em></p>
+                                        </div>
+
+                                        <div layout="row">
+                                            <p class="qlabel">Required</p>
+
+                                            <md-switch class="md-primary var-label" aria-label="required" ng-model="question.required">
+                                            </md-switch>
+                                        </div>
+                                    </div>
+
+                                    <!-- random choices-->
+                                    <div ng-if="question.type != &#39;short-answer&#39; &amp;&amp; question.type != &#39;long-answer&#39; &amp;&amp; question.type != &#39;likert-scale&#39; &amp;&amp; question.type != &#39;rating&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+                                            <p class="md-caption" flex="" ng-if="question.type != &#39;matching-pairs&#39; &amp;&amp; question.type != &#39;matrix&#39;">
+                                                Select if you want the order of choices is displayed in random
+                                                order.</p>
+                                            <p class="md-caption" flex="" ng-if="question.type === &#39;matching-pairs&#39;">
+                                                Select
+                                                if you want the order of the right choices is displayed in random
+                                                order.</p>
+                                            <p class="md-caption" flex="" ng-if="question.type === &#39;matrix&#39;">Select if
+                                                you
+                                                want the order of the rows is displayed in random order.</p>
+                                        </div>
+
+                                        <div layout="row">
+                                            <p class="qlabel">Random</p>
+
+                                            <md-switch class="md-primary var-label" aria-label="random" ng-model="question.random">
+                                            </md-switch>
+                                        </div>
+                                    </div>
+
+                                    <!-- border color -->
+                                    <div ng-if="question.type === &#39;matching-pairs&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+                                            <p class="md-caption" flex="">Show a different border color for each pair
+                                                selected</p>
+                                        </div>
+
+                                        <div layout="row">
+                                            <p class="qlabel">Border color</p>
+
+                                            <md-switch class="md-primary var-label" aria-label="border color" ng-model="question.borderColor">
+                                            </md-switch>
+                                        </div>
+                                    </div>
+
+                                    <!--feedback-->
+                                    <div ng-if="question.type != &#39;matrix&#39;">
+                                        <md-divider></md-divider>
+
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+
+                                            <p class="md-caption" flex="">Select if you want to show a feedback below
+                                                the question when the user answers
+                                                (<span ng-if="question.type != &#39;likert-scale&#39; &amp;&amp; question.type != &#39;long-answer&#39; &amp;&amp; question.type != &#39;rating&#39;">right/wrong, </span>
+                                                <span ng-if="question.type === &#39;single-answer&#39;"> option and </span>
+                                                <span ng-if="question.type === &#39;multiple-answers&#39;"> partial and </span>basic)
+                                                or at the score page
+                                                (<span ng-if="question.type != &#39;likert-scale&#39; &amp;&amp; question.type != &#39;long-answer&#39; &amp;&amp; question.type != &#39;rating&#39;">score right/wrong and </span>score
+                                                basic).</p>
+                                        </div>
+
+                                        <div layout="row">
+                                            <p class="qlabel">Feedback Type</p>
+                                            <md-radio-group ng-model="question.feedbackType" ng-change="onFeedbackChanged($index)">
+
+                                                <md-radio-button aria-label="none" value="none" class="md-primary">
+                                                    None
+                                                </md-radio-button>
+
+                                                <md-radio-button ng-if="question.graded===true" aria-label="right-wrong" value="right-wrong" class="md-primary">
+                                                    Right/Wrong. Feedback about if the answer is right or wrong.
+                                                </md-radio-button>
+
+                                                <md-radio-button ng-if="question.type === &#39;single-answer&#39;" aria-label="option" value="option" class="md-primary">
+                                                    Option. Different feedback according to the option selected.
+                                                </md-radio-button>
+
+                                                <md-radio-button ng-if="question.type === &#39;multiple-answers&#39; &amp;&amp; question.graded===true" aria-label="partial" value="partial" class="md-primary">
+                                                    Partial. Feedback available only for multiple answer questions.
+                                                </md-radio-button>
+
+                                                <md-radio-button aria-label="basic" value="basic" class="md-primary">
+                                                    Basic. Feedback not related to the user's answer.
+                                                </md-radio-button>
+
+                                                <md-radio-button aria-label="score" ng-if="question.graded===true" value="score-rightwrong" class="md-primary">
+                                                    Score - Right/Wrong. Custom solution on the score page according to
+                                                    whether the answer is right or wrong.
+                                                </md-radio-button>
+
+                                                <md-radio-button aria-label="score" value="score-basic" ng-if="question.type != &#39;matrix&#39; &amp;&amp; !ctrl.settingsService.generalsettings.personality" class="md-primary">
+                                                    Score - Basic. Custom text on the score page regardless of the
+                                                    user answer.
+                                                </md-radio-button>
+
+                                            </md-radio-group>
+                                        </div>
+
+
+                                        <div layout="row" ng-if="question.feedbackType===&#39;basic&#39; || question.feedbackType===&#39;right-wrong&#39; ||
+                                    question.feedbackType===&#39;option&#39; || question.feedbackType===&#39;partial&#39; || question.feedbackType === &#39;score-rightwrong&#39;
+                                    || question.feedbackType === &#39;score-basic&#39;">
+                                            <p class="qlabel">Feedback Text</p>
+
+                                            <!-- feedback basic -->
+                                            <md-input-container flex="" ng-if="question.feedbackType===&#39;basic&#39;">
+                                                <label>Basic feedback</label>
+                                                <input ng-model="question.feedback.basic" aria-label="basic feedback" md-no-float="" ng-init="!question.feedback.basic ? question.feedback.basic=&#39;&#39; : question.feedback.basic=question.feedback.basic">
+                                            </md-input-container>
+
+
+                                            <!-- feedback right -->
+                                            <md-input-container flex="" ng-if="question.feedbackType===&#39;right-wrong&#39; &amp;&amp; question.graded===true">
+                                                <label>Feedback when the user answer is RIGHT</label>
+                                                <input ng-model="question.feedback.right" aria-label="right feedback" md-no-float="">
+                                            </md-input-container>
+
+                                            <!-- feedback partial all right-->
+                                            <md-input-container flex="" ng-if="question.feedbackType===&#39;partial&#39; &amp;&amp; question.graded===true">
+                                                <label>Feedback for ALL RIGHT</label>
+                                                <input ng-model="question.feedback.partial.allRight" aria-label="right feedback" md-no-float="">
+                                            </md-input-container>
+
+                                            <!-- feedback option 0 -->
+                                            <p class="md-caption" ng-if="question.feedbackType===&#39;option&#39; &amp;&amp; question.choices.length===0">
+                                                Introduce some choices to write their related feedback.
+                                            </p>
+                                            <md-input-container flex="" ng-if="question.feedbackType===&#39;option&#39; &amp;&amp; question.choices.length&gt;0">
+                                                <label>Feedback for <em>{{question.choices[0]}}</em></label>
+                                                <input ng-model="question.feedback.option[0]" aria-label="right feedback" md-no-float="">
+                                            </md-input-container>
+
+
+                                            <!-- feedback score-right -->
+                                            <md-input-container flex="" ng-if="question.feedbackType===&#39;score-rightwrong&#39; &amp;&amp; question.graded===true">
+                                                <label>Feedback on the score page when the user answer is RIGHT</label>
+                                                <input ng-model="question.feedbackScore.right" aria-label="right score feedback" md-no-float="">
+                                            </md-input-container>
+
+                                            <!-- feedback score-basic -->
+                                            <md-input-container flex="" ng-if="question.feedbackType===&#39;score-basic&#39;">
+                                                <label>Custom solution on the score page regardless of the user answer.</label>
+                                                <input ng-model="question.feedbackScore.basic" aria-label="score always feedback" md-no-float="" ng-init="!question.feedbackScore.basic ? question.feedbackScore.basic=&#39;&#39; : question.feedbackScore.basics=question.feedbackScore.basic">
+                                            </md-input-container>
+
+
+                                        </div>
+
+                                        <!-- feedback wrong -->
+                                        <div layout="row" ng-if="question.feedbackType===&#39;right-wrong&#39; &amp;&amp; question.graded===true">
+                                            <p class="qlabel"></p>
+                                            <md-input-container flex="">
+                                                <label>Feedback when the user answer is WRONG</label>
+                                                <input ng-model="question.feedback.wrong" aria-label="wrong feedback" md-no-float="" ng-init="!question.feedback.wrong ? question.feedback.wrong=&#39;&#39; : question.feedback.wrong=question.feedback.wrong">
+                                            </md-input-container>
+                                        </div>
+
+                                        <!-- feedback score-wrong -->
+                                        <div layout="row" ng-if="question.feedbackType===&#39;score-rightwrong&#39; &amp;&amp; question.graded===true">
+                                            <p class="qlabel"></p>
+                                            <md-input-container flex="">
+                                                <label>Feedback on the score page when the user answer is WRONG</label>
+                                                <input ng-model="question.feedbackScore.wrong" aria-label="wrong feedback" md-no-float="" ng-init="!question.feedbackScore.wrong ? question.feedbackScore.wrong=&#39;&#39; : question.feedback.wrong=question.feedbackScore.wrong">
+                                            </md-input-container>
+                                        </div>
+
+                                        <!-- feedback partial someRight, wrongRight, allWrong -->
+                                        <div layout="row" flex="" ng-if="question.feedbackType===&#39;partial&#39; &amp;&amp; question.graded===true">
+                                            <p class="qlabel"></p>
+                                            <md-input-container flex="">
+                                                <label>Feedback for SOME RIGHT, but the answer is not
+                                                    complete.</label>
+                                                <input ng-model="question.feedback.partial.someRight" aria-label="right feedback" md-no-float="">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout="row" flex="" ng-if="question.feedbackType===&#39;partial&#39; &amp;&amp; question.graded===true">
+                                            <p class="qlabel"></p>
+                                            <md-input-container flex="">
+                                                <label>Feedback for SOME RIGHT and SOME WRONG</label>
+                                                <input ng-model="question.feedback.partial.wrongRight" aria-label="right feedback" md-no-float="">
+                                            </md-input-container>
+                                        </div>
+                                        <div layout="row" flex="" ng-if="question.feedbackType===&#39;partial&#39; &amp;&amp; question.graded===true">
+                                            <p class="qlabel"></p>
+                                            <md-input-container flex="">
+                                                <label>Feedback for ALL WRONG</label>
+                                                <input ng-model="question.feedback.partial.allWrong" aria-label="right feedback" md-no-float="">
+                                            </md-input-container>
+                                        </div>
+
+
+                                        <!-- feedback option > 0 -->
+                                        <div layout="row" flex="" ng-if="question.feedbackType===&#39;option&#39; &amp;&amp; question.choices.length&gt;0" ng-repeat="choice in question.choices">
+                                            <p class="qlabel" ng-if="$index&gt;0"></p>
+                                            <md-input-container flex="" ng-if="$index&gt;0">
+                                                <label>Feedback for <em>{{choice}}</em></label>
+                                                <input ng-model="question.feedback.option[$index]" aria-label="right feedback" md-no-float="">
+                                            </md-input-container>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <!-- feedback class -->
+                                    <div layout="row" ng-if="question.feedbackType===&#39;basic&#39; || question.feedbackType===&#39;right-wrong&#39; ||
+                                    question.feedbackType===&#39;option&#39; || question.feedbackType===&#39;partial&#39;">
+
+                                        <p class="qlabel">Feedback Class</p>
+                                        <md-radio-group ng-model="question.feedbackClass">
+                                            <md-radio-button aria-label="button" value="button" class="md-primary">
+                                                Button to launch the feedback
+                                            </md-radio-button>
+                                            <md-radio-button aria-label="text" value="text" class="md-primary">
+                                                Show the feedback text directly
+                                            </md-radio-button>
+                                        </md-radio-group>
+
+                                    </div>
+
+
+                                    <!-- aside image true/false-->
+
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Select if you want an image aside.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Aside Image</p>
+                                        <md-switch class="md-primary var-label" aria-label="aside image" ng-model="question.asideImg" ng-change="ctrl.onChangeAsideImg($index)">
+                                        </md-switch>
+                                    </div>
+
+                                    <!-- aside image path-->
+
+                                    <div layout="row" ng-if="question.asideImg">
+                                        <p class="qlabel">Image URL</p>
+                                        <md-input-container flex="" md-no-float="">
+                                            <input ng-model="question.asideImage" placeholder="Absolute aside image URL" aria-label="aside image" md-no-float="">
+                                        </md-input-container>
+                                    </div>
+
+                                    <!-- aside image position -->
+                                    <div layout="row" ng-if="question.asideImg">
+                                        <p class="qlabel">Image Position</p>
+                                        <md-radio-group ng-model="question.imagePosition" layout="row">
+                                            <md-radio-button aria-label="left" value="left" class="md-primary">
+                                                Left
+                                            </md-radio-button>
+                                            <md-radio-button aria-label="right" value="right" class="md-primary">
+                                                Right
+                                            </md-radio-button>
+                                        </md-radio-group>
+                                    </div>
+
+                                    <!-- aside image for the score page -->
+                                    <div layout="row" ng-if="question.asideImg">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Select if you want to show the aside image also on
+                                            the score page (always in the right).</p>
+                                    </div>
+                                    <div layout="row" ng-if="question.asideImg">
+                                        <p class="qlabel">Show in the score</p>
+                                        <md-switch class="md-primary var-label" aria-label="aside image" ng-model="question.asideImageScore" ng-change="ctrl.onChangeAsideImg($index)">
+                                        </md-switch>
+                                    </div>
+
+                                    <!-- background image true/false-->
+
+                                    <md-divider></md-divider>
+                                    <div layout="row">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Select if you want a background image.</p>
+                                    </div>
+                                    <div layout="row">
+                                        <p class="qlabel">Background Image</p>
+                                        <md-switch class="md-primary var-label" aria-label="background image" ng-model="question.backgroundImg">
+                                        </md-switch>
+                                    </div>
+
+                                    <!-- background image path-->
+
+                                    <div layout="row" ng-if="question.backgroundImg">
+                                        <p class="qlabel">BG Image URL</p>
+                                        <md-input-container flex="" md-no-float="">
+                                            <input ng-model="question.bgImg" placeholder="Absolute background image URL" aria-label="background image">
+                                        </md-input-container>
+                                    </div>
+
+                                    <!-- background min-height -->
+                                    <div layout="row" ng-if="question.backgroundImg">
+                                        <p class="qlabel"></p>
+                                        <p class="md-caption" flex="">Minimum height in pixels, only if you want the
+                                            background to be higher than the choices.</p>
+                                    </div>
+
+                                    <div layout="row" ng-if="question.backgroundImg">
+                                        <p class="qlabel">Minimum Height</p>
+                                        <md-input-container>
+                                            <input type="number" ng-model="question.minHeight" min="0" aria-label="minHeight">
+                                        </md-input-container>
+                                    </div>
+
+
+                                    <!-- half Width-->
+                                    <div ng-if="question.type === &#39;likert-scale&#39; || question.type === &#39;sequence&#39; ||
+                                             (question.type === &#39;multiple-answers&#39; &amp;&amp; question.choicesType != &#39;checkbox&#39;) ||
+                                             (question.type === &#39;single-answer&#39; &amp;&amp; question.choicesType != &#39;radio&#39;) ||
+                                             question.type === &#39;short-answer&#39; || question.type === &#39;long-answer&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+
+                                            <p class="md-caption" flex="">Select if you want the answers occupy 50% of
+                                                the
+                                                width available on large screens.</p>
+                                        </div>
+
+                                        <div layout="row">
+                                            <p class="qlabel">Width 50%</p>
+
+                                            <md-switch class="md-primary var-label" aria-label="half width" ng-model="question.halfWidth">
+                                            </md-switch>
+                                        </div>
+                                    </div>
+
+                                    <!-- semitransparent for matrix -->
+                                    <div ng-if="question.type === &#39;matrix&#39;">
+                                        <md-divider></md-divider>
+                                        <div layout="row">
+                                            <p class="qlabel">Semistransparent</p>
+                                            <md-switch class="md-primary" aria-label="semitransparent" ng-model="question.semitransparent">
+                                                <span class="md-caption">Relevant if there is any background image.</span>
+                                            </md-switch>
+                                        </div>
+                                    </div>
+
+                                    <!-- buttons -->
+                                    <div ng-if="question.choicesType===&#39;button&#39;">
+                                        <md-divider></md-divider>
+
+                                        <div layout="row">
+                                            <p class="qlabel"></p>
+                                            <p class="md-caption" flex="">OPTIONS FOR BUTTONS</p>
+                                        </div>
+
+                                        <div layout="row" ng-if="question.type !=&#39;sequence&#39; &amp;&amp; question.type !=&#39;matching-pairs&#39;">
+                                            <p class="qlabel">Items per Row</p>
+                                            <md-radio-group ng-model="question.itemsWidth" layout="row">
+                                                <md-radio-button aria-label="all" value="0" class="md-primary">
+                                                    All in a row
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="1" value="100" class="md-primary">
+                                                    1
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="2" value="50" class="md-primary">
+                                                    2
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="3" value="33" class="md-primary">
+                                                    3
+                                                </md-radio-button>
+                                                <md-radio-button aria-label="4" value="25" class="md-primary">
+                                                    4
+                                                </md-radio-button>
+                                            </md-radio-group>
+                                        </div>
+
+
+                                        <div layout="row" ng-if="question.type !=&#39;sequence&#39; &amp;&amp; question.type !=&#39;matching-pairs&#39;">
+                                            <p class="qlabel">Keep Width</p>
+                                            <md-switch class="md-primary" aria-label="keep width" ng-model="question.keepWidthMobile">
+                                                <span class="md-caption">Keep the number of items per row in mobile devices. Not recommended!</span>
+                                            </md-switch>
+                                        </div>
+
+                                        <div layout="row">
+                                            <p class="qlabel">Item Separation</p>
+                                            <md-switch class="md-primary" aria-label="item separation" ng-model="question.itemSeparation">
+                                                <span class="md-caption">Spacing between items.</span>
+                                            </md-switch>
+                                        </div>
+
+                                        <div layout="row" ng-if="question.images===true">
+                                            <p class="qlabel">No Border</p>
+                                            <md-switch class="md-primary" aria-label="no border" ng-model="question.noBorder">
+                                                <span class="md-caption">Remove the border around images. Not recommended!</span>
+                                            </md-switch>
+                                        </div>
+
+                                        <div layout="row">
+                                            <p class="qlabel">Semistransparent</p>
+                                            <md-switch class="md-primary" aria-label="semitransparent buttons" ng-model="question.semitransparent">
+                                                <span class="md-caption">Relevant if there is any background image.</span>
+                                            </md-switch>
+                                        </div>
+
+                                        <div layout="row" ng-if="question.images!=true">
+                                            <p class="qlabel">Text Left</p>
+                                            <md-switch class="md-primary" aria-label="text left" ng-model="question.textLeft">
+                                                <span class="md-caption">Left aligned text instead of center aligned text.</span>
+                                            </md-switch>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <hr>
+
+                                <!-- button for show/hide advanced options -->
+
+                                <div layout="row" layout-align="center center">
+                                    <md-button aria-label="Show advanced options" ng-click="question.showAdvancedOptions = !question.showAdvancedOptions">
+                                        <md-icon ng-if="!question.showAdvancedOptions" md-svg-icon="css/icons/eye.svg"></md-icon>
+                                        <md-icon ng-if="question.showAdvancedOptions" md-svg-icon="css/icons/eye-closed.svg"></md-icon>
+                                        <span ng-if="!question.showAdvancedOptions"> Show Advanced Options</span>
+                                        <span ng-if="question.showAdvancedOptions"> Hide Advanced Options</span>
+                                    </md-button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="add">
+                    <md-menu>
+                        <md-button aria-label="Add Question" ng-click="$mdOpenMenu($event)">
+                            <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                            Add Question
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item ng-repeat="type in ctrl.questionTypeMenu">
+                                <md-button ng-click="ctrl.addQuestion($index)">{{type}}</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
+                    <md-menu ng-if="ctrl.getQuestionsCreated().length&gt;0">
+                        <md-button aria-label="Copy Question" ng-click="$mdOpenMenu($event)">
+                            <md-icon md-svg-icon="css/icons/copy.svg"></md-icon>
+                            Copy Question
+                        </md-button>
+                        <md-menu-content width="6">
+                            <md-menu-item ng-repeat="question in ctrl.getQuestionsCreated()">
+                                <md-button ng-click="ctrl.copyQuestion(question.pageNum,question.questionNum)">
+                                    {{question.pageNum+1}}.{{question.questionNum+1}}. {{question.statement}}
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </md-tab>
+
+
+            <!-- page options -->
+
+            <md-tab label="page options">
+                <div layout="row" class="questions-metadata">
+                    <p class="page-labels">Title</p>
+                    <md-input-container md-no-float="" flex="">
+                        <input type="text" ng-model="ctrl.questionsService.pages[ctrl.pageSelected].title" placeholder="Optional" aria-label="Title">
+                    </md-input-container>
+                </div>
+
+                <div layout="row" class="questions-metadata">
+                    <p class="page-labels">Description</p>
+                    <md-input-container md-no-float="" flex="">
+                <textarea ng-model="ctrl.questionsService.pages[ctrl.pageSelected].description" placeholder="Optional (plain text or HTML)" aria-label="Description"></textarea>
+                    </md-input-container>
+                </div>
+
+                <div layout="row" class="questions-metadata">
+                    <p class="page-labels">Media</p>
+
+                    <md-radio-group ng-model="ctrl.addMediaSource">
+                        <md-radio-button aria-label="youtube" value="youtube" class="md-primary" ng-click="ctrl.addYoutube()">
+                            <span>Youtube</span>
+                        </md-radio-button>
+                        <md-radio-button aria-label="media" value="media" class="md-primary" ng-click="ctrl.addMedia()">
+                            <span>Media file</span>
+                        </md-radio-button>
+                    </md-radio-group>
+
+                </div>
+
+                <div layout="row" class="questions-metadata" ng-if="ctrl.addMediaSource===&#39;youtube&#39;">
+                    <p class="page-labels">Source</p>
+                    <md-input-container md-no-float="" flex="">
+                        <input type="text" ng-model="ctrl.questionsService.pages[ctrl.pageSelected].youtube" placeholder="Youtube URL" aria-label="URL">
+                    </md-input-container>
+                </div>
+
+
+                <div layout="row" class="questions-metadata" ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0">
+                    <p class="page-labels"></p>
+                    <p class="md-caption" flex="">One media per page. A media element allows multiple source.
+                        Browser will use the first recognized format.</p>
+                </div>
+
+                <div layout="row" class="questions-metadata" ng-repeat="media in ctrl.questionsService.pages[ctrl.pageSelected].media">
+                    <p class="page-labels">Source</p>
+
+
+                    <div layout="row" flex="grow">
+                        <md-input-container md-no-float="" flex="">
+                            <input type="text" ng-model="media.url" placeholder="Media absolute URL" aria-label="URL">
+                        </md-input-container>
+                        <md-select ng-model="media.type" placeholder="Media Type" class="select-media">
+                            <md-option ng-repeat="type in ctrl.mediaFormat" value="{{type}}">
+                                {{type}}
+                            </md-option>
+                        </md-select>
+                    </div>
+
+
+                    <md-button flex="10" class="md-icon-button md-mini remove " aria-label="remove" ng-click="ctrl.removeMedia(ctrl.questionsService.pages[ctrl.pageSelected].media, $index)">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+                </div>
+
+
+                <div layout="row" class="questions-metadata" ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0 || ctrl.addMediaSource===&#39;youtube&#39;">
+                    <p class="page-labels">Autoplay</p>
+                    <md-radio-group ng-model="ctrl.questionsService.pages[ctrl.pageSelected].autoplay">
+                        <md-radio-button aria-label="never" value="never" class="md-primary">
+                            Never
+                        </md-radio-button>
+                        <md-radio-button aria-label="answer" value="answer" class="md-primary">
+                            When the user answers
+                        </md-radio-button>
+                        <md-radio-button aria-label="right" value="right" class="md-primary">
+                            When the answer is right
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+
+
+                <div class="add">
+                    <md-button ng-if="ctrl.addMediaSource===&#39;media&#39;" ng-click="ctrl.addMedia()">
+                        <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                        Add video / audio source
+                    </md-button>
+                </div>
+
+
+    </md-tab></md-tabs></div>
+
+    <!-- pages -->
+
+    <div flex="20" class="pages-tab">
+        <md-tabs md-dynamic-height="" md-border-bottom="">
+            <md-tab label="pages">
+
+                <div layout="row" ng-repeat="page in ctrl.questionsService.pages" class="pages-buttons">
+                    <md-button flex="" ng-class="[&#39;md-raised&#39;, {&#39;md-primary&#39;: $index == ctrl.pageSelected}]" ng-click="ctrl.pageSelected = $index">Page {{$index+1}}
+                    </md-button>
+
+                    <md-button flex="20" class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.removePage($index)">
+                        <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
+                    </md-button>
+
+                </div>
+
+                <div layout="row" class="add">
+                    <md-button ng-click="ctrl.addPage()">
+                        <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
+                        Add Page
+                    </md-button>
+                </div>
+            </md-tab>
+        </md-tabs>
+    </div>
+
+
+</div></body></html>

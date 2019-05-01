@@ -1,0 +1,48 @@
+
+<!-- saved from url=(0044)http://quickquiz.ws/builder/views/check.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body class=" hasGoogleVoiceExt" cz-shortcut-listen="true"><div layout="row" layout-align="center center" class="check-purchase">
+
+<md-content layout="column" layout-align="center center" class="md-whiteframe-3dp">
+
+    <div><img src="./check_files/logoBlue.png" width="250"></div>
+
+    <form name="checkPurchaseForm" ng-submit="ctrl.onSendForm()" novalidate="">
+    <md-input-container>
+        <label>Purchase code</label>
+        <input name="purchaseCode" ng-model="ctrl.purchaseCode" required="" ng-focus="ctrl.formSent=false">
+
+        <div ng-messages="" ng-if="ctrl.formSent &amp;&amp; !ctrl.isValidCode">
+            <div ng-message="">Purchase code is not valid!</div>
+        </div>
+
+    </md-input-container>
+
+        <div layout="row" layout-align="center center">
+            <md-button class="md-raised" type="submit">Validate</md-button>
+        </div>
+        </form>
+<br><br>
+    <div class="powered" style="text-align:center;font-size: 0.8em;">
+        <p>Purchase here:</p>
+        <p><a href="http://codecanyon.net/item/quickquiz/13641603?ref=ilovemedia-es"><img src="./check_files/logoBlack.png" style="width:100px;"></a></p>
+    </div>
+
+</md-content>
+    </div>
+
+
+
+
+
+
+
+<!--form name="checkPurchaseForm" ng-submit="ctrl.onSendForm()" novalidate>
+       <div>
+           <label for="purchaseCode"></label>
+           <input type="text" name="purchaseCode" ng-model="ctrl.purchaseCode" required>
+       </div>
+
+       <button type="submit">send</button>
+   </form-->
+
+<!--div ng-if="ctrl.formSent && !ctrl.isValidCode">Code is not valid!</div--></body></html>
