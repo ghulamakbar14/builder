@@ -13,7 +13,7 @@ if($type == 'config'){
 if($type == 'question'){
     print_r($data);
 }
-/* Data array posted. Save data array in concerned DB table */
+/* Data array posted. Data array contains both Configuration and questions array */
 if($type == 'data'){
     print_r($data);
 }
