@@ -13,7 +13,7 @@
 
         <md-tab flex label="Preview">
 
-            <iframe frameborder="0" ng-src="{{ ctrl.iframeLocation }}"></iframe>
+            <iframe frameborder="0" ng-src="{{ iframeLocation }}"></iframe>
 
         </md-tab>
 
@@ -24,21 +24,21 @@
                 <div flex class="config-json flex-50">
 
                     <div layout="row" layout-align="center center">
-                        <md-button class="md-raised" ng-click="ctrl.saveConfigJSON()">Download config.json</md-button>
+                        <md-button class="md-raised" ng-click="saveConfigJSON()">Download config.json</md-button>
                     </div>
 
                     <div layout="row" layout-align="center center">
                         <p class="md-caption">Save the file <em>config.json</em> to the <em>quickquiz/data</em> folder.
                         </p>
                     </div>
-                    <pre ng-if="ctrl.showingCode">{{ctrl.configJSON| json}}</pre>
+                    <pre ng-if="showingCode">{{configJSON| json}}</pre>
 
                 </div>
 
 
                 <div flex class="questions-json flex-50">
                     <div layout="row" layout-align="center center">
-                        <md-button class="md-raised" ng-click="ctrl.saveQuestionsJSON()">Download questions.json
+                        <md-button class="md-raised" ng-click="saveQuestionsJSON()">Download questions.json
                         </md-button>
                     </div>
 
@@ -47,13 +47,13 @@
                             folder.</p>
                     </div>
 
-                    <pre ng-if="ctrl.showingCode">{{ctrl.questionsJSON | json}}</pre>
+                    <pre ng-if="showingCode">{{questionsJSON | json}}</pre>
                 </div>
 
             </div>
 
             <div layout="row" layout-padding layout-align="center center">
-                <md-button class="md-raised" ng-click="ctrl.saveDataJS()">Download data.js</md-button>
+                <md-button class="md-raised" ng-click="saveDataJS()">Download data.js</md-button>
             </div>
             <div layout="row" layout-padding layout-align="center center">
                 <p class="md-caption">Save the file <em>data.js</em> to the <em>yourQuiz/data</em>

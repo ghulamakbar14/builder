@@ -12,7 +12,7 @@
 
             <md-tab label="questions">
                 <div layout="column" layout-padding="" class="questions-tab">
-                    <div ng-repeat="question in ctrl.questionsService.pages[ctrl.pageSelected].questions">
+                    <div ng-repeat="question in questionsService.pages[ctrl.pageSelected].questions">
 
                         <div class="question-frame" id="q-{{$index}}">
 
@@ -37,7 +37,7 @@
 
                             <div class="md-whiteframe-3dp editing-question" ng-cloak="" ng-if="question.showSource">
                                 <!-- cuePoint -->
-                                <div ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0 || ctrl.questionsService.pages[ctrl.pageSelected].youtube.length&gt;0">
+                                <div ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0 || questionsService.pages[ctrl.pageSelected].youtube.length&gt;0">
                                     <div layout="row">
                                         <p class="qlabel"></p>
 
@@ -55,7 +55,7 @@
 
                                 <!--statement, description, ID, and header -->
                                 <div>
-                                    <md-divider ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0"></md-divider>
+                                    <md-divider ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0"></md-divider>
                                     <div layout="row">
                                         <p class="qlabel">Statement</p>
                                         <md-input-container flex="" md-no-float="">
@@ -1292,14 +1292,14 @@
                 <div layout="row" class="questions-metadata">
                     <p class="page-labels">Title</p>
                     <md-input-container md-no-float="" flex="">
-                        <input type="text" ng-model="ctrl.questionsService.pages[ctrl.pageSelected].title" placeholder="Optional" aria-label="Title">
+                        <input type="text" ng-model="questionsService.pages[ctrl.pageSelected].title" placeholder="Optional" aria-label="Title">
                     </md-input-container>
                 </div>
 
                 <div layout="row" class="questions-metadata">
                     <p class="page-labels">Description</p>
                     <md-input-container md-no-float="" flex="">
-                <textarea ng-model="ctrl.questionsService.pages[ctrl.pageSelected].description" placeholder="Optional (plain text or HTML)" aria-label="Description"></textarea>
+                <textarea ng-model="questionsService.pages[ctrl.pageSelected].description" placeholder="Optional (plain text or HTML)" aria-label="Description"></textarea>
                     </md-input-container>
                 </div>
 
@@ -1320,18 +1320,18 @@
                 <div layout="row" class="questions-metadata" ng-if="ctrl.addMediaSource===&#39;youtube&#39;">
                     <p class="page-labels">Source</p>
                     <md-input-container md-no-float="" flex="">
-                        <input type="text" ng-model="ctrl.questionsService.pages[ctrl.pageSelected].youtube" placeholder="Youtube URL" aria-label="URL">
+                        <input type="text" ng-model="questionsService.pages[ctrl.pageSelected].youtube" placeholder="Youtube URL" aria-label="URL">
                     </md-input-container>
                 </div>
 
 
-                <div layout="row" class="questions-metadata" ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0">
+                <div layout="row" class="questions-metadata" ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0">
                     <p class="page-labels"></p>
                     <p class="md-caption" flex="">One media per page. A media element allows multiple source.
                         Browser will use the first recognized format.</p>
                 </div>
 
-                <div layout="row" class="questions-metadata" ng-repeat="media in ctrl.questionsService.pages[ctrl.pageSelected].media">
+                <div layout="row" class="questions-metadata" ng-repeat="media in questionsService.pages[ctrl.pageSelected].media">
                     <p class="page-labels">Source</p>
 
 
@@ -1347,15 +1347,15 @@
                     </div>
 
 
-                    <md-button flex="10" class="md-icon-button md-mini remove " aria-label="remove" ng-click="ctrl.removeMedia(ctrl.questionsService.pages[ctrl.pageSelected].media, $index)">
+                    <md-button flex="10" class="md-icon-button md-mini remove " aria-label="remove" ng-click="ctrl.removeMedia(questionsService.pages[ctrl.pageSelected].media, $index)">
                         <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
                     </md-button>
                 </div>
 
 
-                <div layout="row" class="questions-metadata" ng-if="ctrl.questionsService.pages[ctrl.pageSelected].media.length&gt;0 || ctrl.addMediaSource===&#39;youtube&#39;">
+                <div layout="row" class="questions-metadata" ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0 || ctrl.addMediaSource===&#39;youtube&#39;">
                     <p class="page-labels">Autoplay</p>
-                    <md-radio-group ng-model="ctrl.questionsService.pages[ctrl.pageSelected].autoplay">
+                    <md-radio-group ng-model="questionsService.pages[ctrl.pageSelected].autoplay">
                         <md-radio-button aria-label="never" value="never" class="md-primary">
                             Never
                         </md-radio-button>
@@ -1385,7 +1385,7 @@
         <md-tabs md-dynamic-height="" md-border-bottom="">
             <md-tab label="pages">
 
-                <div layout="row" ng-repeat="page in ctrl.questionsService.pages" class="pages-buttons">
+                <div layout="row" ng-repeat="page in questionsService.pages" class="pages-buttons">
                     <md-button flex="" ng-class="[&#39;md-raised&#39;, {&#39;md-primary&#39;: $index == ctrl.pageSelected}]" ng-click="ctrl.pageSelected = $index">Page {{$index+1}}
                     </md-button>
 
