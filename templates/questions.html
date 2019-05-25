@@ -3,7 +3,7 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body class=" hasGoogleVoiceExt" cz-shortcut-listen="true"><div layout-padding="" layout="row">
 
 
-    <div flex="80" class="questions-column" ng-if="ctrl.pageSelected&gt;=0">
+    <div flex="80" class="questions-column" ng-if="pageSelected&gt;=0">
 
 
         <md-tabs md-dynamic-height="" md-border-bottom="">
@@ -12,14 +12,14 @@
 
             <md-tab label="questions">
                 <div layout="column" layout-padding="" class="questions-tab">
-                    <div ng-repeat="question in questionsService.pages[ctrl.pageSelected].questions">
+                    <div ng-repeat="question in questionsService.pages[pageSelected].questions">
 
                         <div class="question-frame" id="q-{{$index}}">
 
                             <md-toolbar>
                                 <div class="md-toolbar-tools">
                                     <p>{{$index+1}}.
-                                        <span ng-if="question.type!=&#39;matrix&#39;">{{ctrl.questionTypeMenu[ctrl.questionType.indexOf(question.type)]}}</span>
+                                        <span ng-if="question.type!=&#39;matrix&#39;">{{questionTypeMenu[questionType.indexOf(question.type)]}}</span>
                                         <span ng-if="question.type===&#39;matrix&#39; &amp;&amp; question.choicesType===&#39;radio&#39;">Matrix - Radio</span>
                                         <span ng-if="question.type===&#39;matrix&#39; &amp;&amp; question.choicesType===&#39;rating&#39;">Matrix - Rating</span>
                                     </p>
@@ -28,7 +28,7 @@
                                         <md-icon md-svg-icon="css/icons/edit.svg"></md-icon>
                                     </md-button>
 
-                                    <md-button class="md-icon-button" aria-label="Remove question" ng-click="ctrl.deleteQuestion($index)">
+                                    <md-button class="md-icon-button" aria-label="Remove question" ng-click="deleteQuestion($index)">
                                         <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
                                     </md-button>
                                 </div>
@@ -37,7 +37,7 @@
 
                             <div class="md-whiteframe-3dp editing-question" ng-cloak="" ng-if="question.showSource">
                                 <!-- cuePoint -->
-                                <div ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0 || questionsService.pages[ctrl.pageSelected].youtube.length&gt;0">
+                                <div ng-if="questionsService.pages[pageSelected].media.length&gt;0 || questionsService.pages[pageSelected].youtube.length&gt;0">
                                     <div layout="row">
                                         <p class="qlabel"></p>
 
@@ -55,7 +55,7 @@
 
                                 <!--statement, description, ID, and header -->
                                 <div>
-                                    <md-divider ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0"></md-divider>
+                                    <md-divider ng-if="questionsService.pages[pageSelected].media.length&gt;0"></md-divider>
                                     <div layout="row">
                                         <p class="qlabel">Statement</p>
                                         <md-input-container flex="" md-no-float="">
@@ -71,7 +71,7 @@
                                     <div layout="row">
                                         <p class="qlabel">ID</p>
                                         <md-input-container flex="" md-no-float="">
-                                            <input ng-model="question.qID" placeholder="Optional ID useful for database, conditional paths (coming soon), etc." ng-change="ctrl.onChangeID($index)">
+                                            <input ng-model="question.qID" placeholder="Optional ID useful for database, conditional paths (coming soon), etc." ng-change="onChangeID($index)">
                                         </md-input-container>
 
                                     </div>
@@ -85,7 +85,7 @@
 
                                 <!-- graded -->
                                 <div ng-if="question.type != &#39;likert-scale&#39; &amp;&amp; question.type != &#39;rating&#39; &amp;&amp; question.type != &#39;long-answer&#39; &amp;&amp; question.choicesType != &#39;rating&#39;
-                                             &amp;&amp; ctrl.settingsService.generalSettings.graded===true">
+                                             &amp;&amp; settingsService.generalSettings.graded===true">
                                     <md-divider></md-divider>
                                     <div layout="row">
                                         <p class="qlabel"></p>
@@ -94,7 +94,7 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Graded</p>
-                                        <md-switch class="md-primary var-label" aria-label="graded" ng-model="question.graded" ng-change="ctrl.onChangeGradedQuestion($index)">
+                                        <md-switch class="md-primary var-label" aria-label="graded" ng-model="question.graded" ng-change="onChangeGradedQuestion($index)">
                                         </md-switch>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Left choices</p>
-                                        <md-chips flex="" ng-model="question.choicesLeft" placeholder="Next left choice" delete-button-label="Remove option" delete-hint="Press delete to remove option" secondary-placeholder="First left choice" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        <md-chips flex="" ng-model="question.choicesLeft" placeholder="Next left choice" delete-button-label="Remove option" delete-hint="Press delete to remove option" secondary-placeholder="First left choice" md-on-remove="deleteChoice($parent.$index)">
                                         </md-chips>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Right choices</p>
-                                        <md-chips flex="" ng-model="question.choicesRight" placeholder="Next right choice" delete-button-label="Remove choice" delete-hint="Press delete to remove choice" secondary-placeholder="First right choice" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        <md-chips flex="" ng-model="question.choicesRight" placeholder="Next right choice" delete-button-label="Remove choice" delete-hint="Press delete to remove choice" secondary-placeholder="First right choice" md-on-remove="deleteChoice($parent.$index)">
                                         </md-chips>
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Choices</p>
-                                        <md-chips flex="" ng-model="question.choices" placeholder="Next choice" delete-button-label="Remove choice" delete-hint="Press delete to remove choice" secondary-placeholder="First choice" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        <md-chips flex="" ng-model="question.choices" placeholder="Next choice" delete-button-label="Remove choice" delete-hint="Press delete to remove choice" secondary-placeholder="First choice" md-on-remove="deleteChoice($parent.$index)">
                                         </md-chips>
                                     </div>
                                 </div>
@@ -197,13 +197,13 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Rows</p>
-                                        <md-chips flex="" ng-model="question.rows" placeholder="Next row" delete-button-label="Remove row" delete-hint="Press delete to remove row" secondary-placeholder="First row" md-on-remove="ctrl.deleteChoice($parent.$index)">
+                                        <md-chips flex="" ng-model="question.rows" placeholder="Next row" delete-button-label="Remove row" delete-hint="Press delete to remove row" secondary-placeholder="First row" md-on-remove="deleteChoice($parent.$index)">
                                         </md-chips>
                                     </div>
                                 </div>
 
                                 <!-- rows id -->
-                                <div ng-if="question.type === &#39;matrix&#39; &amp;&amp; question.rows.length&gt;0 &amp;&amp; ctrl.settingsService.database.selected != &#39;none&#39;">
+                                <div ng-if="question.type === &#39;matrix&#39; &amp;&amp; question.rows.length&gt;0 &amp;&amp; settingsService.database.selected != &#39;none&#39;">
                                     <md-divider></md-divider>
 
                                     <div layout="row" ng-repeat="row in question.rows">
@@ -212,14 +212,14 @@
                                         <div layout="row" layout-fill="">
                                             <p>{{question.rows[$index]}} - &nbsp; &nbsp;</p>
                                             <md-input-container flex="" md-no-float="">
-                                                <input flex="" ng-model="question.rID[$index]" aria-label="question.rID" placeholder="Optional. Column name for this row in the database." ng-change="ctrl.onChangeRID($parent.$index,$index)">
+                                                <input flex="" ng-model="question.rID[$index]" aria-label="question.rID" placeholder="Optional. Column name for this row in the database." ng-change="onChangeRID($parent.$index,$index)">
                                             </md-input-container>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- other option -->
-                                <div ng-if="!question.graded &amp;&amp; !question.weighted &amp;&amp; !ctrl.settingsService.generalSettings.personality &amp;&amp; (question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39;)">
+                                <div ng-if="!question.graded &amp;&amp; !question.weighted &amp;&amp; !settingsService.generalSettings.personality &amp;&amp; (question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39;)">
                                     <md-divider></md-divider>
                                     <div layout="row">
                                         <p class="qlabel"></p>
@@ -228,7 +228,7 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Other</p>
-                                        <md-switch class="md-primary var-label" aria-label="other" ng-model="question.otherOption" ng-change="ctrl.onChangeOtherOption($index)">
+                                        <md-switch class="md-primary var-label" aria-label="other" ng-model="question.otherOption" ng-change="onChangeOtherOption($index)">
                                         </md-switch>
                                     </div>
                                 </div>
@@ -406,7 +406,7 @@
                                     <div layout="row">
                                         <p class="qlabel">Minimum value</p>
                                         <md-input-container md-no-float="">
-                                            <input type="number" ng-model="question.minValue" aria-label="minimum value" ng-change="ctrl.onChangeLikertValues($index)">
+                                            <input type="number" ng-model="question.minValue" aria-label="minimum value" ng-change="onChangeLikertValues($index)">
                                         </md-input-container>
                                     </div>
                                 </div>
@@ -415,7 +415,7 @@
                                 <div layout="row" ng-if="question.type === &#39;likert-scale&#39;">
                                     <p class="qlabel">Maximum value</p>
                                     <md-input-container md-no-float="">
-                                        <input type="number" ng-model="question.maxValue" aria-label="maximum value" ng-change="ctrl.onChangeLikertValues($index)">
+                                        <input type="number" ng-model="question.maxValue" aria-label="maximum value" ng-change="onChangeLikertValues($index)">
                                     </md-input-container>
                                 </div>
 
@@ -425,14 +425,14 @@
                                     <div layout="row">
                                         <p class="qlabel">Max Number</p>
                                         <md-input-container md-no-float="">
-                                            <input type="number" min="1" max="10" ng-model="question.maxValue" aria-label="maximum value" ng-change="ctrl.onChangeRatingValues($index)">
+                                            <input type="number" min="1" max="10" ng-model="question.maxValue" aria-label="maximum value" ng-change="onChangeRatingValues($index)">
                                         </md-input-container>
                                     </div>
                                 </div>
 
                                 <!-- weighted -->
                                 <div ng-if="question.type != &#39;matching-pairs&#39; &amp;&amp; question.type != &#39;sequence&#39; &amp;&amp; question.type != &#39;long-answer&#39; &amp;&amp; question.type != &#39;short-answer&#39;
-                                             &amp;&amp; ctrl.settingsService.generalSettings.weighted===true">
+                                             &amp;&amp; settingsService.generalSettings.weighted===true">
                                     <md-divider></md-divider>
                                     <div layout="row">
                                         <p class="qlabel"></p>
@@ -446,7 +446,7 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Weighted</p>
-                                        <md-switch class="md-primary var-label" aria-label="graded" ng-model="question.weighted" ng-change="ctrl.onChangeWeightedQuestion($index)">
+                                        <md-switch class="md-primary var-label" aria-label="graded" ng-model="question.weighted" ng-change="onChangeWeightedQuestion($index)">
                                         </md-switch>
                                     </div>
 
@@ -490,7 +490,7 @@
                                 </div>
 
                                 <!-- personality for single and multiple answers -->
-                                <div ng-if="ctrl.settingsService.generalSettings.personality &amp;&amp; question.choices.length&gt;0 &amp;&amp;
+                                <div ng-if="settingsService.generalSettings.personality &amp;&amp; question.choices.length&gt;0 &amp;&amp;
                                 (question.type === &#39;single-answer&#39; || question.type === &#39;multiple-answers&#39;)">
                                     <md-divider></md-divider>
                                     <div layout="row">
@@ -505,7 +505,7 @@
                                         <div layout="column" class="choices-personality">
                                             <p><strong>{{choice}}</strong></p>
 
-                                            <div layout="row" layout-align="space-between center" ng-repeat="result in ctrl.settingsService.generalSettings.personalities" class="personality-points">
+                                            <div layout="row" layout-align="space-between center" ng-repeat="result in settingsService.generalSettings.personalities" class="personality-points">
                                                 <div flex="75"><em>{{result}}</em></div>
                                                 <md-input-container md-no-float="" flex="25">
                                                     <input type="number" ng-model="question.associatedPersonality[$parent.$index][this.$index]" aria-label="weight" placeholder="points">
@@ -637,7 +637,7 @@
                                 </div>
 
                                 <!-- sample solution for long answer -->
-                                <div ng-if="question.type === &#39;long-answer&#39; &amp;&amp; ctrl.settingsService.score.showSolution">
+                                <div ng-if="question.type === &#39;long-answer&#39; &amp;&amp; settingsService.score.showSolution">
                                     <md-divider></md-divider>
                                     <div layout="row">
                                         <p class="qlabel"></p>
@@ -657,26 +657,26 @@
                                 <!-- points-->
                                 <div ng-if="question.graded === true">
                                     <md-divider></md-divider>
-                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                    <div layout="row" ng-if="settingsService.score.maxPoints===0">
                                         <p class="qlabel"></p>
                                         <p class="md-caption" flex="">How many points worth this question?</p>
                                     </div>
 
-                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                    <div layout="row" ng-if="settingsService.score.maxPoints===0">
                                         <p class="qlabel">Points</p>
                                         <md-input-container md-no-float="">
-                                            <input type="number" ng-model="question.points" min="0" aria-label="points&quot;" ng-change="ctrl.onPointsChanged($index)">
+                                            <input type="number" ng-model="question.points" min="0" aria-label="points&quot;" ng-change="onPointsChanged($index)">
                                         </md-input-container>
                                     </div>
-                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                    <div layout="row" ng-if="settingsService.score.maxPoints===0">
                                         <p class="qlabel"></p>
                                         <p class="md-caption" flex="">Penalty points if this question is answered
                                             incorrectly (negative numbers only).</p>
                                     </div>
-                                    <div layout="row" ng-if="ctrl.settingsService.score.maxPoints===0">
+                                    <div layout="row" ng-if="settingsService.score.maxPoints===0">
                                         <p class="qlabel">Penalty points</p>
                                         <md-input-container md-no-float="">
-                                            <input type="number" ng-model="question.penaltyPoints" max="0" aria-label="points&quot;" ng-change="ctrl.onPenaltyPointsChanged($index)">
+                                            <input type="number" ng-model="question.penaltyPoints" max="0" aria-label="points&quot;" ng-change="onPenaltyPointsChanged($index)">
                                         </md-input-container>
                                     </div>
                                 </div>
@@ -810,7 +810,7 @@
 
 
                                     <!-- required -->
-                                    <div ng-if="ctrl.settingsService.generalSettings.requiredQuestions !== true">
+                                    <div ng-if="settingsService.generalSettings.requiredQuestions !== true">
                                         <md-divider></md-divider>
                                         <div layout="row">
                                             <p class="qlabel"></p>
@@ -916,7 +916,7 @@
                                                     whether the answer is right or wrong.
                                                 </md-radio-button>
 
-                                                <md-radio-button aria-label="score" value="score-basic" ng-if="question.type != &#39;matrix&#39; &amp;&amp; !ctrl.settingsService.generalsettings.personality" class="md-primary">
+                                                <md-radio-button aria-label="score" value="score-basic" ng-if="question.type != &#39;matrix&#39; &amp;&amp; !settingsService.generalsettings.personality" class="md-primary">
                                                     Score - Basic. Custom text on the score page regardless of the
                                                     user answer.
                                                 </md-radio-button>
@@ -1056,7 +1056,7 @@
                                     </div>
                                     <div layout="row">
                                         <p class="qlabel">Aside Image</p>
-                                        <md-switch class="md-primary var-label" aria-label="aside image" ng-model="question.asideImg" ng-change="ctrl.onChangeAsideImg($index)">
+                                        <md-switch class="md-primary var-label" aria-label="aside image" ng-model="question.asideImg" ng-change="onChangeAsideImg($index)">
                                         </md-switch>
                                     </div>
 
@@ -1090,7 +1090,7 @@
                                     </div>
                                     <div layout="row" ng-if="question.asideImg">
                                         <p class="qlabel">Show in the score</p>
-                                        <md-switch class="md-primary var-label" aria-label="aside image" ng-model="question.asideImageScore" ng-change="ctrl.onChangeAsideImg($index)">
+                                        <md-switch class="md-primary var-label" aria-label="aside image" ng-model="question.asideImageScore" ng-change="onChangeAsideImg($index)">
                                         </md-switch>
                                     </div>
 
@@ -1263,20 +1263,20 @@
                             Add Question
                         </md-button>
                         <md-menu-content width="4">
-                            <md-menu-item ng-repeat="type in ctrl.questionTypeMenu">
-                                <md-button ng-click="ctrl.addQuestion($index)">{{type}}</md-button>
+                            <md-menu-item ng-repeat="type in questionTypeMenu">
+                                <md-button ng-click="addQuestion($index)">{{type}}</md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
 
-                    <md-menu ng-if="ctrl.getQuestionsCreated().length&gt;0">
+                    <md-menu ng-if="getQuestionsCreated().length&gt;0">
                         <md-button aria-label="Copy Question" ng-click="$mdOpenMenu($event)">
                             <md-icon md-svg-icon="css/icons/copy.svg"></md-icon>
                             Copy Question
                         </md-button>
                         <md-menu-content width="6">
-                            <md-menu-item ng-repeat="question in ctrl.getQuestionsCreated()">
-                                <md-button ng-click="ctrl.copyQuestion(question.pageNum,question.questionNum)">
+                            <md-menu-item ng-repeat="question in getQuestionsCreated()">
+                                <md-button ng-click="copyQuestion(question.pageNum,question.questionNum)">
                                     {{question.pageNum+1}}.{{question.questionNum+1}}. {{question.statement}}
                                 </md-button>
                             </md-menu-item>
@@ -1292,46 +1292,46 @@
                 <div layout="row" class="questions-metadata">
                     <p class="page-labels">Title</p>
                     <md-input-container md-no-float="" flex="">
-                        <input type="text" ng-model="questionsService.pages[ctrl.pageSelected].title" placeholder="Optional" aria-label="Title">
+                        <input type="text" ng-model="questionsService.pages[pageSelected].title" placeholder="Optional" aria-label="Title">
                     </md-input-container>
                 </div>
 
                 <div layout="row" class="questions-metadata">
                     <p class="page-labels">Description</p>
                     <md-input-container md-no-float="" flex="">
-                <textarea ng-model="questionsService.pages[ctrl.pageSelected].description" placeholder="Optional (plain text or HTML)" aria-label="Description"></textarea>
+                <textarea ng-model="questionsService.pages[pageSelected].description" placeholder="Optional (plain text or HTML)" aria-label="Description"></textarea>
                     </md-input-container>
                 </div>
 
                 <div layout="row" class="questions-metadata">
                     <p class="page-labels">Media</p>
 
-                    <md-radio-group ng-model="ctrl.addMediaSource">
-                        <md-radio-button aria-label="youtube" value="youtube" class="md-primary" ng-click="ctrl.addYoutube()">
+                    <md-radio-group ng-model="addMediaSource">
+                        <md-radio-button aria-label="youtube" value="youtube" class="md-primary" ng-click="addYoutube()">
                             <span>Youtube</span>
                         </md-radio-button>
-                        <md-radio-button aria-label="media" value="media" class="md-primary" ng-click="ctrl.addMedia()">
+                        <md-radio-button aria-label="media" value="media" class="md-primary" ng-click="addMedia()">
                             <span>Media file</span>
                         </md-radio-button>
                     </md-radio-group>
 
                 </div>
 
-                <div layout="row" class="questions-metadata" ng-if="ctrl.addMediaSource===&#39;youtube&#39;">
+                <div layout="row" class="questions-metadata" ng-if="addMediaSource===&#39;youtube&#39;">
                     <p class="page-labels">Source</p>
                     <md-input-container md-no-float="" flex="">
-                        <input type="text" ng-model="questionsService.pages[ctrl.pageSelected].youtube" placeholder="Youtube URL" aria-label="URL">
+                        <input type="text" ng-model="questionsService.pages[pageSelected].youtube" placeholder="Youtube URL" aria-label="URL">
                     </md-input-container>
                 </div>
 
 
-                <div layout="row" class="questions-metadata" ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0">
+                <div layout="row" class="questions-metadata" ng-if="questionsService.pages[pageSelected].media.length&gt;0">
                     <p class="page-labels"></p>
                     <p class="md-caption" flex="">One media per page. A media element allows multiple source.
                         Browser will use the first recognized format.</p>
                 </div>
 
-                <div layout="row" class="questions-metadata" ng-repeat="media in questionsService.pages[ctrl.pageSelected].media">
+                <div layout="row" class="questions-metadata" ng-repeat="media in questionsService.pages[pageSelected].media">
                     <p class="page-labels">Source</p>
 
 
@@ -1340,22 +1340,22 @@
                             <input type="text" ng-model="media.url" placeholder="Media absolute URL" aria-label="URL">
                         </md-input-container>
                         <md-select ng-model="media.type" placeholder="Media Type" class="select-media">
-                            <md-option ng-repeat="type in ctrl.mediaFormat" value="{{type}}">
+                            <md-option ng-repeat="type in mediaFormat" value="{{type}}">
                                 {{type}}
                             </md-option>
                         </md-select>
                     </div>
 
 
-                    <md-button flex="10" class="md-icon-button md-mini remove " aria-label="remove" ng-click="ctrl.removeMedia(questionsService.pages[ctrl.pageSelected].media, $index)">
+                    <md-button flex="10" class="md-icon-button md-mini remove " aria-label="remove" ng-click="removeMedia(questionsService.pages[pageSelected].media, $index)">
                         <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
                     </md-button>
                 </div>
 
 
-                <div layout="row" class="questions-metadata" ng-if="questionsService.pages[ctrl.pageSelected].media.length&gt;0 || ctrl.addMediaSource===&#39;youtube&#39;">
+                <div layout="row" class="questions-metadata" ng-if="questionsService.pages[pageSelected].media.length&gt;0 || addMediaSource===&#39;youtube&#39;">
                     <p class="page-labels">Autoplay</p>
-                    <md-radio-group ng-model="questionsService.pages[ctrl.pageSelected].autoplay">
+                    <md-radio-group ng-model="questionsService.pages[pageSelected].autoplay">
                         <md-radio-button aria-label="never" value="never" class="md-primary">
                             Never
                         </md-radio-button>
@@ -1370,7 +1370,7 @@
 
 
                 <div class="add">
-                    <md-button ng-if="ctrl.addMediaSource===&#39;media&#39;" ng-click="ctrl.addMedia()">
+                    <md-button ng-if="addMediaSource===&#39;media&#39;" ng-click="addMedia()">
                         <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
                         Add video / audio source
                     </md-button>
@@ -1386,17 +1386,17 @@
             <md-tab label="pages">
 
                 <div layout="row" ng-repeat="page in questionsService.pages" class="pages-buttons">
-                    <md-button flex="" ng-class="[&#39;md-raised&#39;, {&#39;md-primary&#39;: $index == ctrl.pageSelected}]" ng-click="ctrl.pageSelected = $index">Page {{$index+1}}
+                    <md-button flex="" ng-class="[&#39;md-raised&#39;, {&#39;md-primary&#39;: $index == pageSelected}]" ng-click="pageSelected = $index">Page {{$index+1}}
                     </md-button>
 
-                    <md-button flex="20" class="md-icon-button md-mini remove" aria-label="remove" ng-click="ctrl.removePage($index)">
+                    <md-button flex="20" class="md-icon-button md-mini remove" aria-label="remove" ng-click="removePage($index)">
                         <md-icon md-svg-icon="css/icons/close.svg"></md-icon>
                     </md-button>
 
                 </div>
 
                 <div layout="row" class="add">
-                    <md-button ng-click="ctrl.addPage()">
+                    <md-button ng-click="addPage()">
                         <md-icon md-svg-icon="css/icons/add.svg"></md-icon>
                         Add Page
                     </md-button>
