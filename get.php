@@ -95,58 +95,10 @@ $config = '{
 $question = '{
   "pages": [
     {
-      "title": "First page",
-      "description": "This is first page description",
-      "questions": [
-        {
-          "type": "sequence",
-          "statement": "1, 4, 9, 16, .., ..,..",
-          "description": "Find the next numbers in given series",
-          "graded": true,
-          "points": 4,
-          "penaltyPoints": -1,
-          "choicesType": "select",
-          "choices": [
-            "25",
-            "36",
-            "49"
-          ],
-          "solution": [
-            0,
-            1,
-            2
-          ],
-          "placeholder": "Select"
-        }
-      ],
-      "youtube": "https://www.youtube.com/watch?v=s3qZF4jhgDo&list=PLYxzS__5yYQmX2bItSRCqwiQZn5dIL1gt",
-      "autoplay": "answer"
-    },
-    {
-      "title": "Second Page",
-      "description": "This is second page description",
-      "questions": [
-        {
-          "type": "single-answer",
-          "statement": "Huawei company belongs to which country?",
-          "description": "Write the name of the country only..",
-          "graded": true,
-          "points": 4,
-          "penaltyPoints": -1,
-          "choicesType": "button",
-          "choices": [
-            "USA",
-            "India",
-            "China",
-            "Germany"
-          ],
-          "itemsWidth": 50,
-          "itemSeparation": true,
-          "solution": 2
-        }
-      ],
-      "youtube": "https://www.youtube.com/watch?v=oRHPmkvED2E",
-      "autoplay": "right"
+      "title": "",
+      "description": "",
+      "questions": [],
+      "media": []
     }
   ]
 }';
