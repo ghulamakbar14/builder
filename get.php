@@ -102,5 +102,55 @@ $question = '{
     }
   ]
 }';
+// $question = '{
+//   "pages": [
+//     {
+//       "questions": [
+//         {
+//           "type": "single-answer",
+//           "statement": "Huawei company belongs to which country?",
+//           "description": "Write name of country",
+//           "graded": true,
+//           "points": 4,
+//           "penaltyPoints": -1,
+//           "choicesType": "button",
+//           "choices": [
+//             "USA",
+//             "Germany",
+//             "China",
+//             "France"
+//           ],
+//           "itemsWidth": 50,
+//           "itemSeparation": true,
+//           "solution": 2
+//         }
+//       ],
+//       "autoplay": "answer",
+//       "youtube": "https://www.youtube.com/watch?v=zKkUN-mJtPQ&list=PL6n9fhu94yhWKHkcL7RJmmXyxkuFB3KSl"
+//     },
+//     {
+//       "questions": [
+//         {
+//           "type": "single-answer",
+//           "statement": "IPhone company belongs to which country?",
+//           "description": "Write name of country",
+//           "graded": true,
+//           "points": 4,
+//           "penaltyPoints": -1,
+//           "choicesType": "radio",
+//           "choices": [
+//             "USA",
+//             "Germany",
+//             "China",
+//             "France"
+//           ],
+//           "solution": 0
+//         }
+//       ],
+//       "autoplay": "right",
+//       "youtube": "https://www.youtube.com/watch?v=tG7vx7-3sl0&list=PLHFlHpPjgk71-8cHGcN7GpjIimFcVIC4X&index=2&t=0s"
+//     }
+//   ]
+// }';
 echo json_encode(array('config' => $config, 'question' => $question));
 ?>
